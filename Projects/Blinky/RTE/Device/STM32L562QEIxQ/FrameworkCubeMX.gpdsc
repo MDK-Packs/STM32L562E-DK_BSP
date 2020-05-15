@@ -23,7 +23,6 @@
       <workingDir>$PRTE\Device\STM32L562QEIxQ</workingDir>
       <project_files>
         <file category="include" name="STCubeGenerated/Inc/"/>
-        <file category="include" name="Drivers/STM32L5xx_HAL_Driver/Inc/"/>
         <file category="source" name="STCubeGenerated/Src/main.c" />
         <file category="header" name="STCubeGenerated/Inc/stm32l5xx_it.h"/>
         <file category="source" name="STCubeGenerated/Src/stm32l5xx_it.c"/>

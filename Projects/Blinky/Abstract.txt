@@ -1,16 +1,18 @@
-The 'Blinky' project is a simple CMSIS RTOS2 based example for
-ST 'STM32L562QEI6QU' microcontroller using ST 'STM32L562E-DK' Board.
+The 'Blinky' project is a simple CMSIS RTOS2 based example.
 Compliant to Cortex Microcontroller Software Interface Standard (CMSIS).
 
 Example functionality:
- - Clock Settings:
-   - MSI     =             4.00 MHz
-   - SYSCLK  =           110.00 MHz
+
+ - Virtual LEDs vioLED0, vioLED1 are blinking as running light with fixed speed 100 ms
+ - Virtual Button vioBUTTON0 is used for stop/start blinking Virtual LED vioLED1
 
  - Target options:
    - Compiler:                  ARM Compiler optimization Level 1
    - Compiler:Event Recorder:   Enabled
    - CMSIS:RTOS2:Keil RTX5:     Source
 
- - LEDs LD9, LD10 are blinking as running light with fixed speed 100 ms
- - USER Button B2 is used for stop/start blinking LED LD9
+ - Hardware Mapping:
+            Virtual I/O      Board
+   LED       vioLED0          LD9
+   LED       vioLED1          LD10
+   Button    vioBUTTON0       B2

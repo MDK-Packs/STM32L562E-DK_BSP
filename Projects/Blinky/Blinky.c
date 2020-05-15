@@ -1,38 +1,26 @@
-/*------------------------------------------------------------------------------
- * Copyright (c) 2017 - 2020 Arm Limited (or its affiliates). All
- * rights reserved.
+/* -------------------------------------------------------------------------- 
+ * Copyright (c) 2017-2020 ARM Limited. All rights reserved.
  *
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: Apache-2.0
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *   1.Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   2.Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   3.Neither the name of Arm nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *------------------------------------------------------------------------------
- * Name:    Blinky.c
- * Purpose: LED Flasher
- *----------------------------------------------------------------------------*/
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *      Name:    Blinky.c
+ *      Purpose: RTX example program
+ *
+ *---------------------------------------------------------------------------*/
 
 #include "main.h"
-
 
 static osThreadId_t tid_thrLED;         // Thread id of thread: LED
 static osThreadId_t tid_thrButton;      // Thread id of thread: Button
@@ -51,18 +39,18 @@ __NO_RETURN static void thrLED (void *arg) {
     }
 
     if (active_flag == 1U) {
-      vioSetSignal (vioLED0, vioLEDoff);          // Switch LED0 off
-      vioSetSignal (vioLED1, vioLEDon);           // Switch LED1 on
-      osDelay (100U);                             // Delay 100 ms
-      vioSetSignal (vioLED0, vioLEDon);           // Switch LEDs
-      vioSetSignal (vioLED1, vioLEDoff);
-      osDelay (100U);                             // Delay 100 ms
+      vioSetSignal (vioLED0, vioLEDoff);        // Switch LED0 off
+      vioSetSignal (vioLED1, vioLEDon);         // Switch LED1 on
+      osDelay (100U);                           // Delay 100 ms
+      vioSetSignal (vioLED0, vioLEDon);         // Switch LED0 on
+      vioSetSignal (vioLED1, vioLEDoff);        // Switch LED1 off
+      osDelay (100U);                           // Delay 100 ms
     }
     else {
-      vioSetSignal (vioLED0, vioLEDon);           // Switch LED0 on
-      osDelay (500U);                             // Delay 500 ms
-      vioSetSignal (vioLED0, vioLEDoff);          // Switch LED0 off
-      osDelay (500U);                             // Delay 500 ms
+      vioSetSignal (vioLED0, vioLEDon);         // Switch LED0 on
+      osDelay (500U);                           // Delay 500 ms
+      vioSetSignal (vioLED0, vioLEDoff);        // Switch LED0 off
+      osDelay (500U);                           // Delay 500 ms
     }
   }
 }
@@ -79,7 +67,7 @@ __NO_RETURN static void thrButton(void *arg) {
   for (;;) {
     state = (vioGetSignal (vioBUTTON0));          // Get pressed Button state
     if (state != last) {
-      if (state == 1) {
+      if (state == 1U) {
         osThreadFlagsSet (tid_thrLED, 1U);        // Set flag to thrLED
       }
       last = state;
