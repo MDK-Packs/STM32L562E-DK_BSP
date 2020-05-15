@@ -3,7 +3,8 @@
   <name>STM32L562E-DK_BSP</name>
   <vendor>Keil</vendor>
   <description>STMicroelectronics STM32L5 Series STM32L562E-DK Board Support Pack</description>
-  <url>https://www.keil.com/pack/</url>
+  <url>https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/</url>
+  <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
     <release version="1.0.0" date="2020-05-14">
@@ -98,10 +99,10 @@
   </conditions>
 
   <components>
-    <bundle Cbundle="STM32L562E-DK" Cclass="Board Support" Cversion="1.0.0">
+    <bundle Cbundle="STM32L562E-DK" Cclass="Board Support" Cversion="1.0.1">
       <description>STMicroelectronics STM32L562E-DK Board</description>
       <doc></doc>
-      <component Cgroup="Drivers" Csub="Basic I/O"              condition="STM32L562E-DK BSP">
+      <component Cgroup="Drivers" Csub="Basic I/O" condition="STM32L562E-DK BSP">
         <description>LEDs, push-buttons and COM ports for STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/Config/stm32l562e_discovery_conf.h"        attr="config" version="1.0.0"/>
@@ -109,7 +110,7 @@
           <file category="source" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="Audio"              condition="STM32L562E-DK BSP Audio">
+      <component Cgroup="Drivers" Csub="Audio" condition="STM32L562E-DK BSP Audio">
         <description>Audio for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_audio.h"/>
@@ -118,21 +119,21 @@
           <file category="source" name="Drivers/Components/cs42l51/cs42l51_reg.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="BUS"              condition="STM32L562E-DK BSP BUS">
+      <component Cgroup="Drivers" Csub="BUS" condition="STM32L562E-DK BSP BUS">
         <description>BUS for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_bus.h"/>
           <file category="source" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_bus.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="IDD"              condition="STM32L562E-DK BSP IDD">
+      <component Cgroup="Drivers" Csub="IDD" condition="STM32L562E-DK BSP IDD">
         <description>IDD for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_idd.h"/>
           <file category="source" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_idd.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="LCD"              condition="STM32L562E-DK BSP LCD">
+      <component Cgroup="Drivers" Csub="LCD" condition="STM32L562E-DK BSP LCD">
         <description>LCD for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_lcd.h"/>
@@ -141,7 +142,7 @@
           <file category="source" name="Drivers/Components/st7789h2/st7789h2_reg.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="Motion Sensors"              condition="STM32L562E-DK BSP MOTION SENSORS">
+      <component Cgroup="Drivers" Csub="Motion Sensors" condition="STM32L562E-DK BSP MOTION SENSORS">
         <description>Motion Sensors for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_motion_sensors.h"/>
@@ -150,7 +151,7 @@
           <file category="source" name="Drivers/Components/lsm6dso/lsm6dso_reg.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="OSPI"              condition="STM32L562E-DK BSP OSPI">
+      <component Cgroup="Drivers" Csub="OSPI" condition="STM32L562E-DK BSP OSPI">
         <description>OSPI for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/Config/mx25lm51245g_conf.h"        attr="config" version="1.0.0"/>
@@ -159,14 +160,14 @@
           <file category="source" name="Drivers/Components/mx25lm51245g/mx25lm51245g.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="SD"              condition="STM32L562E-DK BSP SD">
+      <component Cgroup="Drivers" Csub="SD" condition="STM32L562E-DK BSP SD">
         <description>SD for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_sd.h"/>
           <file category="source" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_sd.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="Touch Screen"              condition="STM32L562E-DK BSP TS">
+      <component Cgroup="Drivers" Csub="Touch Screen" condition="STM32L562E-DK BSP TS">
         <description>Touch Screen for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/Config/ft6x06_conf.h"        attr="config" version="1.0.0"/>
@@ -176,7 +177,7 @@
           <file category="source" name="Drivers/Components/ft6x06/ft6x06_reg.c"/>
         </files>
       </component>
-      <component Cgroup="Drivers" Csub="USB PD" Cversion="1.0.0"   condition="STM32L562E-DK BSP USB PD">
+      <component Cgroup="Drivers" Csub="USB PD" condition="STM32L562E-DK BSP USB PD">
         <description>USB Type C power delivery for STMicroelectronics STM32L562E-DK Board</description>
         <files>
           <file category="header" name="Drivers/STM32L5xx_Discovery/stm32l562e_discovery_usbpd_pwr.h"/>
@@ -210,7 +211,7 @@
       <image small="Images/Discovery_small.jpg"
              large="Images/Discovery_large.jpg"/>
       <book category="overview"  name="https://www.st.com/en/evaluation-tools/stm32l562e-dk.html" title="STM32 Discovery board"/>
-      <book category="overview"  name="Documents/DB3937.pdf"        title="Data Brief"/>
+      <book category="overview"  name="Documents/DB3937.pdf"        title="Data brief"/>
       <book category="overview"  name="Documents/stm32l562e-dk.pdf" title="Overview"/>
       <book category="manual"    name="Documents/DM00635554.pdf"    title="User Manual"/>
       <book category="manual"    name="Documents/DM00688718.pdf"    title="User Manual - STMod+"/>
