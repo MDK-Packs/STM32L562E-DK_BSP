@@ -1,14 +1,13 @@
 #!/bin/bash
-# Version: 1.0 
-# Date: 2019-08-16
+# Version: 1.1
+# Date: 2020-05-14
 # This bash script generates a CMSIS Software Pack:
 #
 # Pre-requisites:
 # - bash shell (for Windows: install git for Windows)
 # - 7z in path (zip archiving utility)
-#   e.g. Ubuntu: sudo apt-get install p7zip-full p7zip-rar) 
-# - PackChk in path with execute permission
-#   (see CMSIS-Pack: CMSIS/Utilities/<os>/PackChk)
+#   e.g. Ubuntu: sudo apt-get install p7zip-full p7zip-rar)
+# - PackChk is taken from latest install CMSIS Pack installed in $CMSIS_PACK_ROOT
 # - xmllint in path (XML schema validation; available only for Linux)
 
 ############### EDIT BELOW ###############
@@ -27,15 +26,16 @@ case $OS in
     if [ -z ${CMSIS_PACK_ROOT+x} ] ; then
       CMSIS_PACK_ROOT="$LOCALAPPDATA/Arm/Packs"
     fi
+    CMSIS_PACK_ROOT="/$(echo ${CMSIS_PACK_ROOT} | sed -e 's/\\/\//g' -e 's/://g' -e 's/\"//g')"
     CMSIS_TOOLSDIR="$(ls -drv ${CMSIS_PACK_ROOT}/ARM/CMSIS/* | head -1)/CMSIS/Utilities/Win32"
     ;;
   'Darwin') 
     echo "Error: CMSIS Tools not available for Mac at present."
- exit 1
+    exit 1
     ;;
   *)
-    echo "Error: unrecognised OS $OS"
- exit 1
+    echo "Error: unrecognized OS $OS"
+    exit 1
     ;;
 esac
 
@@ -128,7 +128,6 @@ echo "Generating Pack Version: for $PACK_VENDOR.$PACK_NAME"
 echo " "
 IFS=$SAVEIFS
 
-
 #if $PACK_BUILD directory does not exist, create it.
 if [ ! -d "$PACK_BUILD" ]; then
   mkdir -p "$PACK_BUILD"
@@ -164,7 +163,7 @@ fi
 if [ $(uname -s) = "Linux" ]
   then
   echo "Running schema check for ${PACK_VENDOR}.${PACK_NAME}.pdsc"
-  xmllint --noout --schema "${CMSIS_PACK_ROOT}/CMSIS/Utilities/PACK.xsd" "${PACK_BUILD}/${PACK_VENDOR}.${PACK_NAME}.pdsc"
+  xmllint --noout --schema "${CMSIS_TOOLSDIR}/../PACK.xsd" "${PACK_BUILD}/${PACK_VENDOR}.${PACK_NAME}.pdsc"
   errorlevel=$?
   if [ $errorlevel -ne 0 ]; then
     echo "build aborted: Schema check of $PACK_VENDOR.$PACK_NAME.pdsc against PACK.xsd failed"
