@@ -60,50 +60,50 @@ __USED vioAddrIPv6_t vioAddrIPv6[VIO_IPV6_ADDRESS_NUM];                 // Memor
 #if !defined CMSIS_VOUT
 // Add global user types, variables, functions here:
 static osMutexId_t  mid_mutLCD;         // Mutex ID of mutex:  LCD
-static char         ip_ascii[41];       // string buffer for IP address conversion
+static char         ip_ascii[40];       // string buffer for IP address conversion
 
 /**
   convert IP4 address to ASCII
 
   \param[in]   ip4_addr   pointer to IP4 address.
-  \param[in]   buf        pointer to ascii buffer
+  \param[out]  buf        pointer to ascii buffer.
+  \param[in]   buf_len    length of a buffer (16 bytes)
 */
-static void ip4_2a (const uint8_t *ip4_addr, char *buf) {
-  int32_t n;
-
-  n = sprintf (buf+0, "%d.%d.", ip4_addr[0], ip4_addr[1]);
-  sprintf     (buf+n, "%d.%d",  ip4_addr[2], ip4_addr[3]);
+static void ip4_2a (const uint8_t *ip4_addr, char *buf, uint32_t buf_len) {
+  if (buf_len < 16U) {
+    return;
+  }
+  sprintf (buf, "%d.%d.%d.%d", ip4_addr[0], ip4_addr[1], ip4_addr[2], ip4_addr[3]);
 }
-
-#define __ALIGNED_UINT16(x) (*(uint16_t *)(uint32_t)x)
-#define get_u16(p)          ((uint16_t)((*(uint8_t *)(p)) << 8) | ((*(uint8_t *)(p+1))))
 
 /**
   convert IP6 address to ASCII
 
   \param[in]   ip6_addr   pointer to IP6 address.
-  \param[in]   buf        pointer to ascii buffer
+  \param[out]  buf        pointer to ascii buffer.
+  \param[in]   buf_len    length of a buffer (40 bytes)
 */
-static void ip6_2a (const uint8_t *ip6_addr, char *buf) {
-  uint16_t *v16;
-  int32_t i,j,nmax,idx;
+static void ip6_2a (const uint8_t *ip6_addr, char *buf, uint32_t buf_len) {
+  uint16_t v16[8];
+  int32_t i, j, nmax, idx;
 
-  /* Temp buffer reuses last 16-bytes of buf, 16-bit aligned */
-  v16 = &__ALIGNED_UINT16(((uint32_t)&buf[24] & ~1u));
-
-  /* Read IPv6 address to temp host-byte-ordered buffer */
-  for (i = 0; i < 8; i++) {
-    v16[i] = get_u16 (&ip6_addr[i<<1]);
+  if (buf_len < 40U) {
+    return;
   }
 
+  /* Read IPv6 address in hextets */
+  for (i = 0; i < 16; i += 2) {
+    v16[i >> 1] = (uint16_t)(ip6_addr[i] << 8) | ip6_addr[i+1];
+  }
+
+  /* Find the largest block of consecutive zero hextets */
   idx = 8;
   for (i = nmax = 0; i < 8-1; i++) {
-    if (v16[i] != 0) {
+    if (v16[i] != 0U) {
       continue;
     }
-    /* Find the largest block of consecutive zeros */
     for (j = i; j < 8-1; j++) {
-      if (v16[j+1] != 0) {
+      if (v16[j+1] != 0U) {
         break;
       }
     }
@@ -115,7 +115,7 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf) {
       nmax = j - i + 1;
       idx  = i;
     }
-    /* Skip already processed zeros */
+    /* Skip already processed zero hextets */
     i = j;
   }
   for (i = j = 0; i < idx;  ) {
@@ -126,7 +126,7 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf) {
     buf[j++] = ':';
   }
   if (i < 8) {
-    /* Right-end not yet completed */
+    /* Right-end not yet complete */
     buf[j++] = ':';
     for (i += nmax; i < 8; i++) {
       j += sprintf (&buf[j], ":%x", v16[i]);
@@ -138,7 +138,6 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf) {
   /* Make string null-terminated */
   buf[j] = 0;
 }
-
 
 typedef struct displayArea {
   uint16_t   xOrigin;          // x Origin
@@ -580,7 +579,7 @@ void vioSetIPv4 (uint32_t id, vioAddrIPv4_t addrIPv4) {
 
 #if !defined CMSIS_VOUT
 // Add user code here:
-  ip4_2a((uint8_t *)&vioAddrIPv4[index], ip_ascii);
+  ip4_2a((uint8_t *)&vioAddrIPv4[index], ip_ascii, sizeof(ip_ascii));
 
   osMutexAcquire(mid_mutLCD, osWaitForever);
   GUI_SetFont(&Font12);
@@ -631,7 +630,7 @@ void vioSetIPv6 (uint32_t id, vioAddrIPv6_t addrIPv6) {
 
 #if !defined CMSIS_VOUT
 // Add user code here:
-  ip6_2a((uint8_t *)&vioAddrIPv6[index], ip_ascii);
+  ip6_2a((uint8_t *)&vioAddrIPv6[index], ip_ascii, sizeof(ip_ascii));
 
   osMutexAcquire(mid_mutLCD, osWaitForever);
   GUI_SetFont(&Font12);
