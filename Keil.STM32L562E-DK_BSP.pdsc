@@ -7,7 +7,7 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
-    <release version="1.0.0" date="2020-05-14">
+    <release version="1.0.0" date="2020-05-18">
       Initial public release.
     </release>
   </releases>
