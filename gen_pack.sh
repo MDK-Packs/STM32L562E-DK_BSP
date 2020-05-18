@@ -66,8 +66,7 @@ PACK_DIRS=${PACK_DIRS//$PACK_WAREHOUSE/}
   
 # Specify file names to be added to pack base directory
 PACK_BASE_FILES="
-  License.txt
-  ReadMe.txt
+  LICENSE
 "
 
 ############ DO NOT EDIT BELOW ###########
@@ -150,8 +149,8 @@ done
 echo Adding files to pack:
 echo "${PACK_BASE_FILES}"
 echo " "
-if [ ! ${PACK_BASE_FILES+x} ]; then
-  for f in "${PACK_BASE_FILES}"
+if [ ! -x ${PACK_BASE_FILES+x} ]; then
+  for f in ${PACK_BASE_FILES}
     do
       cp -f  "$f" $PACK_BUILD/ 
   done
