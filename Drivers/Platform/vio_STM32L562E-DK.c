@@ -22,6 +22,19 @@
  * limitations under the License.
  */
 
+/*! \page vio_STM32L562E_DK Physical I/O Mapping
+
+The table below lists the physical I/O mapping of this CMSIS-Driver VIO implementation.
+
+Virtual Resource  | Variable       | Physical Resource on STM32L562E-DK             |
+:-----------------|:---------------|:-----------------------------------------------|
+vioBUTTON0        | vioSignalIn.0  | GPIO C.13: Button USER                         |
+vioLED0           | vioSignalOut.0 | GPIO D.3:  LD9 RED                             |
+vioLED1           | vioSignalOut.1 | GPIO G.12: LD10 GREEN                          |
+vioMotionGyro     | vioValueXYZ[0] | iNEMO 3D gyroscope (LSM6DSO)                   |
+vioMotionAccelero | vioValueXYZ[1] | iNEMO 3D accelorometer (LSM6DSO)               |
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
