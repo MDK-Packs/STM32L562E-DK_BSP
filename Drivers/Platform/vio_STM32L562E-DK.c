@@ -5,7 +5,7 @@
  * @date     24. March 2020
  ******************************************************************************/
 /*
- * Copyright (c) 2019-2020 Arm Limited. All rights reserved.
+ * Copyright (c) 2020 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -40,17 +40,16 @@ vioMotionAccelero | vioValueXYZ[1] | iNEMO 3D accelorometer (LSM6DSO)           
 #include <stdarg.h>
 #include "cmsis_vio.h"
 
-#include "RTE_Components.h"             // Component selection
+#include "RTE_Components.h"
 #include CMSIS_device_header
 
 #if !defined CMSIS_VOUT || !defined CMSIS_VIN
-// Add user includes here:
 #include "stm32l562e_discovery.h"
 #include "stm32l562e_discovery_motion_sensors.h"
 #include "stm32l562e_discovery_lcd.h"
 #include "basic_gui.h"
 
-#include "cmsis_os2.h"                  // ::CMSIS:RTOS2
+#include "cmsis_os2.h"
 #endif
 
 // VIO input, output definitions
@@ -71,7 +70,7 @@ __USED vioAddrIPv4_t vioAddrIPv4[VIO_IPV4_ADDRESS_NUM];                 // Memor
 __USED vioAddrIPv6_t vioAddrIPv6[VIO_IPV6_ADDRESS_NUM];                 // Memory for IPv6 address value used in vioSetIPv6/vioGetIPv6
 
 #if !defined CMSIS_VOUT
-// Add global user types, variables, functions here:
+// Global types, variables, functions
 static osMutexId_t  mid_mutLCD;         // Mutex ID of mutex:  LCD
 static char         ip_ascii[40];       // string buffer for IP address conversion
 
@@ -86,7 +85,7 @@ static void ip4_2a (const uint8_t *ip4_addr, char *buf, uint32_t buf_len) {
   if (buf_len < 16U) {
     return;
   }
-  sprintf (buf, "%d.%d.%d.%d", ip4_addr[0], ip4_addr[1], ip4_addr[2], ip4_addr[3]);
+  sprintf(buf, "%d.%d.%d.%d", ip4_addr[0], ip4_addr[1], ip4_addr[2], ip4_addr[3]);
 }
 
 /**
@@ -132,7 +131,7 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf, uint32_t buf_len) {
     i = j;
   }
   for (i = j = 0; i < idx;  ) {
-    j += sprintf (&buf[j], "%x", v16[i]);
+    j += sprintf(&buf[j], "%x", v16[i]);
     if (++i == idx) {
       break;
     }
@@ -142,7 +141,7 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf, uint32_t buf_len) {
     /* Right-end not yet complete */
     buf[j++] = ':';
     for (i += nmax; i < 8; i++) {
-      j += sprintf (&buf[j], ":%x", v16[i]);
+      j += sprintf(&buf[j], ":%x", v16[i]);
     }
     if (buf[j-1] == ':') {
       buf[j++] = ':';
@@ -204,7 +203,7 @@ static void displayString (uint32_t idx, char *str) {
       case 0x0A:                          // Line Feed
         display[idx].yPos += display[idx].fontHeight;                /* Move cursor one row down */
         if (display[idx].yPos >= display[idx].yHeight) {             /* If bottom of display was overstepped */
-          displayScrollVertical (idx);
+          displayScrollVertical(idx);
           display[idx].yPos -= display[idx].fontHeight;              /* Stay in last row */
         }
         break;
@@ -213,14 +212,14 @@ static void displayString (uint32_t idx, char *str) {
         break;
       default:
         // Display character at current cursor position
-        GUI_DisplayChar (display[idx].xPos, display[idx].yPos, ch);
+        GUI_DisplayChar(display[idx].xPos, display[idx].yPos, ch);
         display[idx].xPos += display[idx].fontWidth;                 /* Move cursor one column to right */
         if (display[idx].xPos >= display[idx].xWidth) {              /* If last column was overstepped */
           display[idx].xPos = display[idx].xOrigin;                  /* First column */
           display[idx].yPos += display[idx].fontHeight;              /* Move cursor one row down and to */
         }
         if (display[idx].yPos >= display[idx].yHeight) {             /* If bottom of display was overstepped */
-          displayScrollVertical (idx);
+          displayScrollVertical(idx);
           display[idx].yPos -= display[idx].fontHeight;              /* Stay in last row */
         }
         break;
@@ -238,7 +237,7 @@ static void displayString (uint32_t idx, char *str) {
 // Initialize test input, output.
 void vioInit (void) {
 #if !defined CMSIS_VOUT
-// Add user variables here:
+  // Display variables:
   GUI_Drv_t GuiDrv;
   uint32_t XSize, YSize;
 #endif
@@ -250,25 +249,25 @@ void vioInit (void) {
   vioSignalIn  = 0U;
   vioSignalOut = 0U;
 
-  memset (vioPrintMem, 0, sizeof(vioPrintMem));
-  memset (vioValue,    0, sizeof(vioValue));
-  memset (vioValueXYZ, 0, sizeof(vioValueXYZ));
-  memset (vioAddrIPv4, 0, sizeof(vioAddrIPv4));
-  memset (vioAddrIPv6, 0, sizeof(vioAddrIPv6));
+  memset(vioPrintMem, 0, sizeof(vioPrintMem));
+  memset(vioValue,    0, sizeof(vioValue));
+  memset(vioValueXYZ, 0, sizeof(vioValueXYZ));
+  memset(vioAddrIPv4, 0, sizeof(vioAddrIPv4));
+  memset(vioAddrIPv6, 0, sizeof(vioAddrIPv6));
 
 #if !defined CMSIS_VOUT
-// Add user code here:
-  /* create LCD mutex */
+  // Create LCD mutex
   mid_mutLCD = osMutexNew(NULL);
   if (mid_mutLCD == NULL) { /* add error handling */ }
 
+  // Initialize LEDs pins
   BSP_LED_Init(LED_RED);
   BSP_LED_Init(LED_GREEN);
 
-  /* Initialize the LCD */
-  BSP_LCD_Init(0, LCD_ORIENTATION_PORTRAIT);
+  // Initialize the LCD
+  BSP_LCD_Init(0U, LCD_ORIENTATION_PORTRAIT);
 
-  /* Set GUI functions */
+  // Set GUI functions
   GuiDrv.DrawBitmap  = BSP_LCD_DrawBitmap;
   GuiDrv.FillRGBRect = BSP_LCD_FillRGBRect;
   GuiDrv.DrawHLine   = BSP_LCD_DrawHLine;
@@ -282,16 +281,16 @@ void vioInit (void) {
   GuiDrv.GetFormat   = BSP_LCD_GetFormat;
   GUI_SetFuncDriver(&GuiDrv);
 
-  /* Clear the LCD */
+  // Clear the LCD
   GUI_Clear(GUI_COLOR_BLACK);
 
-  /* Set the display on */
-  BSP_LCD_DisplayOn(0);
+  // Set the display on
+  BSP_LCD_DisplayOn(0U);
 
-  BSP_LCD_GetXSize(0, &XSize);
-  BSP_LCD_GetYSize(0, &YSize);
-  
-  /* initialize display areas */
+  BSP_LCD_GetXSize(0U, &XSize);
+  BSP_LCD_GetYSize(0U, &YSize);
+
+  // Initialize display areas
   display[vioLevelHeading].fontWidth  =  11;
   display[vioLevelHeading].fontHeight =  16;
   display[vioLevelHeading].xOrigin    =   3;
@@ -329,39 +328,39 @@ void vioInit (void) {
   display[vioLevelMessage].yPos       = display[vioLevelMessage].yOrigin;
 
 
-  /* draw lcd layout */
-  GUI_DrawRect(0, 0, XSize,   YSize, GUI_COLOR_ORANGE);
-  GUI_DrawRect(1, 1, XSize-2, YSize-2, GUI_COLOR_ORANGE);
+  // Draw LCD layout
+  GUI_DrawRect(0U, 0U, XSize,    YSize,    GUI_COLOR_ORANGE);
+  GUI_DrawRect(1U, 1U, XSize-2U, YSize-2U, GUI_COLOR_ORANGE);
   /*   3        pixel row empty */
   /*   4.. 35   2 lines font16 =  2*16 vioLevelHeading */
   /*  36        pixel row empty  */
 
-  GUI_DrawHLine(2, 37, XSize-4, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2, 38, XSize-4, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 37U, XSize-4U, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 38U, XSize-4U, GUI_COLOR_ORANGE);
   /*  39        pixel row empty */
   /*  40.. 63   2 lines font12 =  2*12 vioLevelNone */
   /*  64        pixel row empty */
 
-  GUI_DrawHLine(2, 65, XSize-4, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2, 66, XSize-4, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 65U, XSize-4U, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 66U, XSize-4U, GUI_COLOR_ORANGE);
   /*  67        pixel row empty */
   /*  68..115   4 lines font12 =  4*12 vioLevelError */
   /* 116        pixel row empty */
 
-  GUI_DrawHLine(2, 117, XSize-4, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2, 118, XSize-4, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 117U, XSize-4U, GUI_COLOR_ORANGE);
+  GUI_DrawHLine(2U, 118U, XSize-4U, GUI_COLOR_ORANGE);
   /* 119        pixel row empty */
   /* 120..227   9 lines font12 = 9*12 vioLevelMessage */
   /* 228        pixel row empty */
 #endif
 
 #if !defined CMSIS_VIN
-// Add user code here:
+  // Initialize buttons pins (only USER button), MEMS pins
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
 
-  BSP_MOTION_SENSOR_Init(0, MOTION_GYRO | MOTION_ACCELERO);
-  BSP_MOTION_SENSOR_Enable(0, MOTION_GYRO);
-  BSP_MOTION_SENSOR_Enable(0, MOTION_ACCELERO);
+  BSP_MOTION_SENSOR_Init(0U, MOTION_GYRO | MOTION_ACCELERO);
+  BSP_MOTION_SENSOR_Enable(0U, MOTION_GYRO);
+  BSP_MOTION_SENSOR_Enable(0U, MOTION_ACCELERO);
 #endif
 }
 
@@ -389,28 +388,28 @@ int32_t vioPrint (uint32_t level, const char *format, ...) {
   va_end(args);
 
 #if !defined CMSIS_VOUT
-// Add user code here:
+// Draw LCD level
   osMutexAcquire(mid_mutLCD, osWaitForever);
   switch (level) {
     case vioLevelNone:
       GUI_SetFont(&Font12);
       GUI_SetTextColor(GUI_COLOR_WHITE);
-      displayString (level, (char *)vioPrintMem[level]);
+      displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelHeading:
       GUI_SetFont(&Font16);
       GUI_SetTextColor(GUI_COLOR_GREEN);
-      displayString (level, (char *)vioPrintMem[level]);
+      displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelMessage:
       GUI_SetFont(&Font12);
       GUI_SetTextColor(GUI_COLOR_BLUE);
-      displayString (level, (char *)vioPrintMem[level]);
+      displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelError:
       GUI_SetFont(&Font12);
       GUI_SetTextColor(GUI_COLOR_RED);
-      displayString (level, (char *)vioPrintMem[level]);
+      displayString(level, (char *)vioPrintMem[level]);
       break;
   }
       GUI_SetFont(&Font12);
@@ -432,7 +431,7 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
   vioSignalOut |=  mask & signal;
 
 #if !defined CMSIS_VOUT
-// Add user code here:
+  // Output signals to LEDs
   if (mask & vioLED0) {
     if (signal & vioLED0) {
       BSP_LED_On(LED_RED);
@@ -460,9 +459,9 @@ uint32_t vioGetSignal (uint32_t mask) {
 #endif
 
 #if !defined CMSIS_VIN
-// Add user code here:
+  // Get input signals from buttons (only USER button)
   if (mask & vioBUTTON0) {
-    if (BSP_PB_GetState(BUTTON_USER) == 1) {
+    if (BSP_PB_GetState(BUTTON_USER) == 1U) {
       vioSignalIn |=  vioBUTTON0;
     } else {
       vioSignalIn &= ~vioBUTTON0;
@@ -544,7 +543,7 @@ vioValueXYZ_t vioGetXYZ (uint32_t id) {
   uint32_t index = id;
   vioValueXYZ_t valueXYZ = {0, 0, 0};
 #if !defined CMSIS_VIN
-// Add user variables here:
+  // MEMS variables
   BSP_MOTION_SENSOR_Axes_t axes;
 #endif
 
@@ -553,7 +552,7 @@ vioValueXYZ_t vioGetXYZ (uint32_t id) {
   }
 
 #if !defined CMSIS_VIN
-// Add user code here:
+  // Get input xyz values from MEMS
   if (id == vioMotionGyro) {
     if (BSP_MOTION_SENSOR_GetAxes(0, MOTION_GYRO, &axes) == BSP_ERROR_NONE) {
       vioValueXYZ[index].X = axes.x;
@@ -591,14 +590,14 @@ void vioSetIPv4 (uint32_t id, vioAddrIPv4_t addrIPv4) {
   vioAddrIPv4[index] = addrIPv4;
 
 #if !defined CMSIS_VOUT
-// Add user code here:
+  // Convert IP4 address to ASCII
   ip4_2a((uint8_t *)&vioAddrIPv4[index], ip_ascii, sizeof(ip_ascii));
 
   osMutexAcquire(mid_mutLCD, osWaitForever);
   GUI_SetFont(&Font12);
   GUI_SetTextColor(GUI_COLOR_WHITE);
-  displayString (vioLevelNone, "\r\n");
-  displayString (vioLevelNone, ip_ascii);
+  displayString(vioLevelNone, "\r\n");
+  displayString(vioLevelNone, ip_ascii);
   osMutexRelease(mid_mutLCD);
 #endif
 }
@@ -642,14 +641,14 @@ void vioSetIPv6 (uint32_t id, vioAddrIPv6_t addrIPv6) {
   vioAddrIPv6[index] = addrIPv6;
 
 #if !defined CMSIS_VOUT
-// Add user code here:
+  // Convert IP6 address to ASCII
   ip6_2a((uint8_t *)&vioAddrIPv6[index], ip_ascii, sizeof(ip_ascii));
 
   osMutexAcquire(mid_mutLCD, osWaitForever);
   GUI_SetFont(&Font12);
   GUI_SetTextColor(GUI_COLOR_WHITE);
-  displayString (vioLevelNone, "\r\n");
-  displayString (vioLevelNone, ip_ascii);
+  displayString(vioLevelNone, "\r\n");
+  displayString(vioLevelNone, ip_ascii);
   osMutexRelease(mid_mutLCD);
 #endif
 }
