@@ -21,6 +21,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+#ifdef    RTE_VIO_BOARD
+#include "cmsis_vio.h"
+#endif
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -63,7 +67,7 @@ uint32_t HAL_GetTick (void) {
          uint32_t i;
 
   if (osKernelGetState () == osKernelRunning) {
-    return ((uint32_t)osKernelGetTickCount ());
+    return ((uint32_t)osKernelGetTickCount());
   }
 
   /* If Kernel is not running wait approximately 1 ms then increment 
@@ -85,7 +89,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -106,21 +109,19 @@ int main(void)
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
 #ifdef RTE_VIO_BOARD
-  vioInit ();
+  vioInit();
 #endif
 
   /* Initialize CMSIS-RTOS2 */
-  osKernelInitialize ();
+  osKernelInitialize();
 
   /* Create application main thread */
-  osThreadNew (app_main, NULL, NULL);
+  osThreadNew(app_main, NULL, NULL);
 
   /* Start thread execution */
-  osKernelStart ();
+  osKernelStart();
 
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -192,7 +193,7 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  while(1)
+  while (1)
   {
   }
   /* USER CODE END Error_Handler_Debug */
