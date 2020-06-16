@@ -432,7 +432,7 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
 
 #if !defined CMSIS_VOUT
   // Output signals to LEDs
-  if (mask & vioLED0) {
+  if ((mask & vioLED0) != 0U) {
     if (signal & vioLED0) {
       BSP_LED_On(LED_RED);
     } else {
@@ -440,7 +440,7 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
     }
   }
 
-  if (mask & vioLED1) {
+  if ((mask & vioLED1) != 0U) {
     if (signal & vioLED1) {
       BSP_LED_On(LED_GREEN);
     } else {
@@ -460,7 +460,7 @@ uint32_t vioGetSignal (uint32_t mask) {
 
 #if !defined CMSIS_VIN
   // Get input signals from buttons (only USER button)
-  if (mask & vioBUTTON0) {
+  if ((mask & vioBUTTON0) != 0U) {
     if (BSP_PB_GetState(BUTTON_USER) == 1U) {
       vioSignalIn |=  vioBUTTON0;
     } else {

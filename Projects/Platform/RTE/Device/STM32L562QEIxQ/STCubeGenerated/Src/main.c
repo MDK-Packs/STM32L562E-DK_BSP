@@ -21,13 +21,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "cmsis_os2.h"
+#include "RTE_Components.h"
 #ifdef    RTE_VIO_BOARD
 #include "cmsis_vio.h"
 #endif
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

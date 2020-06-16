@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>STM32L562QEIxQ</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32L5xx_DFP.1.2.0</PackID>
+          <PackID>Keil.STM32L5xx_DFP.1.2.1-dev3</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00040000) IRAM2(0x30000000,0x00040000) IROM(0x08000000,0x00080000) IROM2(0x0C000000,0x00080000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -500,132 +500,126 @@
           </targetInfo>
         </targetInfos>
       </component>
+      <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="LSM6DSO" Cvendor="Keil" Cversion="1.2.1" condition="STM32L562">
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="ST7789H2" Cvendor="Keil" Cversion="2.0.0" condition="STM32L562">
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="BUS" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP BUS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="LCD" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP LCD">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Motion Sensors" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP MOTION SENSORS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Capiversion="0.1.0" Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="STM32L562E-DK" Cvendor="Keil" Cversion="1.0.0" condition="STM32L562E-DK VIO">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 HAL Common">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Cortex" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="DMA" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="EXTI" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Flash" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="GPIO" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="I2C" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL DMA">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="PWR" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="RCC" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL GPIO Flash">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="SRAM" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL DMA">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="UART" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 HAL DMA">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 CMSIS">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
     </components>
     <files>
-      <file attr="config" category="header" name="Drivers\Config\stm32l5xx_nucleo_conf.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Board_Support\STM32L552ZETxQ\stm32l5xx_nucleo_conf.h</instance>
-        <component Cbundle="NUCLEO-L552ZE-Q" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.0.0" condition="NUCLEO-L552ZE-Q BSP"/>
-        <package name="STM32L5xx_Nucleo_BSP" schemaVersion="1.6.0" url="https://www.keil.com/pack/" vendor="Keil" version="1.0.0-dev0"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="header" name="Drivers\Config\ft6x06_conf.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Board_Support\STM32L562QEIxQ\ft6x06_conf.h</instance>
-        <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Touch Screen" Cvendor="Keil" Cversion="1.0.0" condition="STM32L562E-DK BSP TS"/>
-        <package name="STM32L5xx_Discovery_BSP" schemaVersion="1.6.0" url="https://www.keil.com/pack/" vendor="Keil" version="1.0.0-dev0"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="header" name="Drivers\Config\mx25lm51245g_conf.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Board_Support\STM32L562QEIxQ\mx25lm51245g_conf.h</instance>
-        <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="OSPI" Cvendor="Keil" Cversion="1.0.0" condition="STM32L562E-DK BSP OSPI"/>
-        <package name="STM32L5xx_Discovery_BSP" schemaVersion="1.6.0" url="https://www.keil.com/pack/" vendor="Keil" version="1.0.0-dev0"/>
-        <targetInfos/>
-      </file>
       <file attr="config" category="header" name="Drivers\Config\stm32l562e_discovery_conf.h" version="1.0.0">
         <instance index="0">RTE\Board_Support\STM32L562QEIxQ\stm32l562e_discovery_conf.h</instance>
         <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP"/>
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -654,52 +648,10 @@
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" condition="STM32L552 ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\startup_stm32l552xx.s</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="linkerScript" condition="STM32L552xE noTZ ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\stm32l552xe_flash.sct</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="linkerScript" condition="STM32L552xE isNonSecure ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash_ns.sct" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\stm32l552xe_flash_ns.sct</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="header" name="Drivers\Config\stm32l5xx_hal_conf.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\stm32l5xx_hal_conf.h</instance>
-        <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 HAL Common"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="source" condition="noTZ" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\system_stm32l5xx.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="source" condition="isNonSecure" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx_ns.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L552ZETxQ\system_stm32l5xx_ns.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev1"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="header" condition="STM32L562_S" name="Drivers\CMSIS\Device\ST\STM32L5xx\Include\Templates\partition_stm32l562xx.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L562QEIxQ\partition_stm32l562xx.h</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev10"/>
-        <targetInfos/>
-      </file>
       <file attr="config" category="source" condition="STM32L562 ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s" version="1.0.2">
         <instance index="0">RTE\Device\STM32L562QEIxQ\startup_stm32l562xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -707,27 +659,7 @@
       <file attr="config" category="linkerScript" condition="STM32L562xE noTZ ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct" version="1.0.2">
         <instance index="0">RTE\Device\STM32L562QEIxQ\stm32l562xe_flash.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
-        <targetInfos>
-          <targetInfo name="STM32L562E-DK"/>
-        </targetInfos>
-      </file>
-      <file attr="config" category="linkerScript" condition="STM32L562xE isNonSecure ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash_ns.sct" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L562QEIxQ\stm32l562xe_flash_ns.sct</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev3"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="linkerScript" condition="STM32L562xE isSecure ARMCC" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash_s.sct" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L562QEIxQ\stm32l562xe_flash_s.sct</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev10"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="header" name="Drivers\Config\stm32l5xx_hal_conf.h" version="1.0.0">
-        <instance index="0">RTE\Device\STM32L562QEIxQ\stm32l5xx_hal_conf.h</instance>
-        <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 HAL Common"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -735,22 +667,10 @@
       <file attr="config" category="source" condition="noTZ" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx.c" version="1.0.2">
         <instance index="0">RTE\Device\STM32L562QEIxQ\system_stm32l5xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.2" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.0"/>
+        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.2.1-dev3"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
-      </file>
-      <file attr="config" category="source" condition="isNonSecure" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx_ns.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L562QEIxQ\system_stm32l5xx_ns.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev3"/>
-        <targetInfos/>
-      </file>
-      <file attr="config" category="source" condition="isSecure" name="Drivers\CMSIS\Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx_s.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\STM32L562QEIxQ\system_stm32l5xx_s.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="STM32L5 CMSIS"/>
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev10"/>
-        <targetInfos/>
       </file>
     </files>
   </RTE>
@@ -758,7 +678,7 @@
   <LayerInfo>
     <Layers>
       <Layer>
-        <LayName>&lt;Project Level&gt;</LayName>
+        <LayName>&lt;Project Info&gt;</LayName>
         <LayDesc></LayDesc>
         <LayUrl></LayUrl>
         <LayKeys></LayKeys>

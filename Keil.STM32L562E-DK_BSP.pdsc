@@ -7,6 +7,13 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev3">
+      Drivers:
+      - Update VIO module
+      Projects:
+      - Update examples:
+      -- Move includes (cmsis_os2.h, RTE_Components.h)
+    </release>
     <release version="1.0.1-dev2">
       Projects:
       - Update examples:
@@ -144,7 +151,7 @@
       <component Cgroup="Drivers" Csub="Basic I/O" condition="STM32L562E-DK BSP">
         <description>LEDs, push-buttons and COM ports for STM32L562E-DK Board</description>
         <files>
-          <file category="header" name="Drivers/Config/stm32l562e_discovery_conf.h"        attr="config" version="1.0.0"/>
+          <file category="header" name="Drivers/Config/stm32l562e_discovery_conf.h" attr="config" version="1.0.0"/>
           <file category="header" name="Drivers/STM32L562E-DK/stm32l562e_discovery.h"/>
           <file category="source" name="Drivers/STM32L562E-DK/stm32l562e_discovery.c"/>
         </files>
