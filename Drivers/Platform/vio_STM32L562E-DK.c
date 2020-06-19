@@ -433,7 +433,7 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
 #if !defined CMSIS_VOUT
   // Output signals to LEDs
   if ((mask & vioLED0) != 0U) {
-    if (signal & vioLED0) {
+    if ((signal & vioLED0) != 0U) {
       BSP_LED_On(LED_RED);
     } else {
       BSP_LED_Off(LED_RED);
@@ -441,7 +441,7 @@ void vioSetSignal (uint32_t mask, uint32_t signal) {
   }
 
   if ((mask & vioLED1) != 0U) {
-    if (signal & vioLED1) {
+    if ((signal & vioLED1) != 0U) {
       BSP_LED_On(LED_GREEN);
     } else {
       BSP_LED_Off(LED_GREEN);

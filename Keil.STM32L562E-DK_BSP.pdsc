@@ -7,6 +7,9 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev4">
+      Minor fixes.
+    </release>
     <release version="1.0.1-dev3">
       Drivers:
       - Update VIO module
