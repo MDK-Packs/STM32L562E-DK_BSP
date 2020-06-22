@@ -424,9 +424,9 @@
           <GroupName>Documentation</GroupName>
           <Files>
             <File>
-              <FileName>Abstract.txt</FileName>
+              <FileName>Abstract.md</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Abstract.txt</FilePath>
+              <FilePath>.\Abstract.md</FilePath>
             </File>
           </Files>
         </Group>
@@ -501,43 +501,43 @@
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="LSM6DSO" Cvendor="Keil" Cversion="1.2.1" condition="STM32L562">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="ST7789H2" Cvendor="Keil" Cversion="2.0.0" condition="STM32L562">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="BUS" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP BUS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="LCD" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP LCD">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Motion Sensors" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP MOTION SENSORS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Capiversion="0.1.0" Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="STM32L562E-DK" Cvendor="Keil" Cversion="1.0.0" condition="STM32L562E-DK VIO">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -619,7 +619,7 @@
       <file attr="config" category="header" name="Drivers\Config\stm32l562e_discovery_conf.h" version="1.0.0">
         <instance index="0">RTE\Board_Support\STM32L562QEIxQ\stm32l562e_discovery_conf.h</instance>
         <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.0.1" condition="STM32L562E-DK BSP"/>
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev2"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.6.0" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.0.1-dev4"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
