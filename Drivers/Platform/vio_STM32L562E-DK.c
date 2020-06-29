@@ -32,7 +32,7 @@ vioBUTTON0        | vioSignalIn.0  | GPIO C.13: Button USER                     
 vioLED0           | vioSignalOut.0 | GPIO D.3:  LD9 RED                             |
 vioLED1           | vioSignalOut.1 | GPIO G.12: LD10 GREEN                          |
 vioMotionGyro     | vioValueXYZ[0] | iNEMO 3D gyroscope (LSM6DSO)                   |
-vioMotionAccelero | vioValueXYZ[1] | iNEMO 3D accelorometer (LSM6DSO)               |
+vioMotionAccelero | vioValueXYZ[1] | iNEMO 3D accelerometer (LSM6DSO)               |
 */
 
 #include <stdio.h>
