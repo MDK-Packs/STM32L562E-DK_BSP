@@ -7,6 +7,9 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev7">
+      Update to sync with CB_Lab4Layer.
+    </release>
     <release version="1.0.1-dev6">
       Update Platform example Abstract.
     </release>
@@ -298,14 +301,14 @@
            orderForm   ="https://www.st.com/en/evaluation-tools/stm32l562e-dk.html">
       <description>STM32 Discovery development board with STM32L562E MCU</description>
       <image small="Images/Discovery_small.jpg"
-             large="Images/Discovery_large.jpg"/>
-      <book category="overview"  name="https://www.st.com/en/evaluation-tools/stm32l562e-dk.html" title="STM32 Discovery board"/>
-      <book category="overview"  name="Documents/DB3937.pdf"        title="Data brief"/>
-      <book category="overview"  name="Documents/stm32l562e-dk.pdf" title="Overview"/>
-      <book category="manual"    name="Documents/DM00635554.pdf"    title="User Manual"/>
-      <book category="manual"    name="Documents/DM00688718.pdf"    title="User Manual - STMod+"/>
-      <book category="schematic" name="Documents/MB1373.pdf"        title="Schematics"/>
-      <book category="schematic" name="Documents/MB1280.pdf"        title="Schematics - STMod+"/>
+             large="Images/Discovery_large.jpg" public="true"/>
+      <book category="overview"  name="https://www.st.com/en/evaluation-tools/stm32l562e-dk.html" title="STM32 Discovery board" public="true"/>
+      <book category="overview"  name="Documents/DB3937.pdf"        title="Data brief" public="true"/>
+      <book category="overview"  name="Documents/stm32l562e-dk.pdf" title="Overview" public="true"/>
+      <book category="manual"    name="Documents/DM00635554.pdf"    title="User Manual" public="true"/>
+      <book category="manual"    name="Documents/DM00688718.pdf"    title="User Manual - STMod+" public="true"/>
+      <book category="schematic" name="Documents/MB1373.pdf"        title="Schematics" public="true"/>
+      <book category="schematic" name="Documents/MB1280.pdf"        title="Schematics - STMod+" public="true"/>
       <mountedDevice    deviceIndex="0" Dvendor="STMicroelectronics:13" Dname="STM32L562QEIxQ"/> 
       <compatibleDevice deviceIndex="0" Dvendor="STMicroelectronics:13" DsubFamily="STM32L5x2"/>
       <feature type="ODbg"      n="1"                name="On-board ST-LINK-V3E"/>
