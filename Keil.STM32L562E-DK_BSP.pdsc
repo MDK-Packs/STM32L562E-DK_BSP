@@ -7,6 +7,9 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev8">
+      Update Platform example.
+    </release>
     <release version="1.0.1-dev7">
       Update to sync with CB_Lab4Layer.
     </release>

@@ -32,7 +32,7 @@
   \return      none
 */
 void ARDUINO_IO_D10_Set (uint32_t val) {
-  HAL_GPIO_WritePin(IO_D10_GPIO_Port, IO_D10_Pin, val ? GPIO_PIN_RESET : GPIO_PIN_SET);
+  HAL_GPIO_WritePin(ARDUINO_IO_D10_GPIO_Port, ARDUINO_IO_D10_Pin, val ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
 /**
@@ -43,7 +43,7 @@ void ARDUINO_IO_D10_Set (uint32_t val) {
                  - 1
 */
 uint32_t ARDUINO_IO_D9_Get (void) {
-  if (HAL_GPIO_ReadPin(IO_D9_GPIO_Port, IO_D9_Pin) == GPIO_PIN_SET) {
+  if (HAL_GPIO_ReadPin(ARDUINO_IO_D9_GPIO_Port, ARDUINO_IO_D9_Pin) == GPIO_PIN_SET) {
     return 1U;
   } else {
     return 0U;

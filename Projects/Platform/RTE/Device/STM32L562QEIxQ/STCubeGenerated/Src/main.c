@@ -408,20 +408,20 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(IO_D10_GPIO_Port, IO_D10_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(ARDUINO_IO_D10_GPIO_Port, ARDUINO_IO_D10_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pin : IO_D9_Pin */
-  GPIO_InitStruct.Pin = IO_D9_Pin;
+  /*Configure GPIO pin : ARDUINO_IO_D9_Pin */
+  GPIO_InitStruct.Pin = ARDUINO_IO_D9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(IO_D9_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(ARDUINO_IO_D9_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : IO_D10_Pin */
-  GPIO_InitStruct.Pin = IO_D10_Pin;
+  /*Configure GPIO pin : ARDUINO_IO_D10_Pin */
+  GPIO_InitStruct.Pin = ARDUINO_IO_D10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(IO_D10_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(ARDUINO_IO_D10_GPIO_Port, &GPIO_InitStruct);
 
 }
 
