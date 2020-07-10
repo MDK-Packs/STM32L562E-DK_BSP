@@ -7,6 +7,9 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev9">
+      Update Platform example.
+    </release>
     <release version="1.0.1-dev8">
       Update Platform example.
     </release>
@@ -329,7 +332,7 @@
   </boards>
 
   <examples>
-    <example name="Blinky" doc="Abstract.md" folder="Projects/Blinky">
+    <example name="Blinky" doc="README.md" folder="Projects/Blinky">
       <description>CMSIS-RTOS2 Blinky example with VIO</description>
       <board name="STM32L562E-DK" vendor="STMicroelectronics"/>
       <project>
@@ -344,7 +347,7 @@
       </attributes>
     </example>
 
-    <example name="Platform" doc="Abstract.md" folder="Projects/Platform">
+    <example name="Platform" doc="README.md" folder="Projects/Platform">
       <description>CMSIS-RTOS2 Platform example with VIO</description>
       <board name="STM32L562E-DK" vendor="STMicroelectronics"/>
       <project>
