@@ -7,6 +7,9 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
+    <release version="1.0.1-dev11">
+      Correct README.md in Platform example.
+    </release>
     <release version="1.0.1-dev10">
       Update Platform example SPI configuration (SPI_DMA disabled).
     </release>
