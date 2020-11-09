@@ -71,12 +71,8 @@ void HAL_MspInit(void)
   __HAL_RCC_PWR_CLK_ENABLE();
 
   /* System interrupt init*/
-  /* SVCall_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SVCall_IRQn, 6, 0);
-  /* PendSV_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(PendSV_IRQn, 7, 0);
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral 
+  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
   */
   HAL_PWREx_DisableUCPDDeadBattery();
 
@@ -100,7 +96,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   /* USER CODE BEGIN LPUART1_MspInit 0 */
 
   /* USER CODE END LPUART1_MspInit 0 */
-  /** Initializes the peripherals clock 
+  /** Initializes the peripherals clock
   */
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_LPUART1;
     PeriphClkInit.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
@@ -111,11 +107,11 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 
     /* Peripheral clock enable */
     __HAL_RCC_LPUART1_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**LPUART1 GPIO Configuration    
+    /**LPUART1 GPIO Configuration
     PB10     ------> LPUART1_RX
-    PB11     ------> LPUART1_TX 
+    PB11     ------> LPUART1_TX
     */
     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -125,7 +121,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* LPUART1 interrupt Init */
-    HAL_NVIC_SetPriority(LPUART1_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(LPUART1_IRQn, 4, 0);
     HAL_NVIC_EnableIRQ(LPUART1_IRQn);
   /* USER CODE BEGIN LPUART1_MspInit 1 */
 
@@ -137,7 +133,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 
   /* USER CODE END USART1_MspInit 0 */
 
-  /** Initializes the peripherals clock 
+  /** Initializes the peripherals clock
   */
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
     PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
@@ -148,11 +144,11 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 
     /* Peripheral clock enable */
     __HAL_RCC_USART1_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**USART1 GPIO Configuration    
+    /**USART1 GPIO Configuration
     PA9     ------> USART1_TX
-    PA10     ------> USART1_RX 
+    PA10     ------> USART1_RX
     */
     GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -183,10 +179,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
   /* USER CODE END LPUART1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_LPUART1_CLK_DISABLE();
-  
-    /**LPUART1 GPIO Configuration    
+
+    /**LPUART1 GPIO Configuration
     PB10     ------> LPUART1_RX
-    PB11     ------> LPUART1_TX 
+    PB11     ------> LPUART1_TX
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10|GPIO_PIN_11);
 
@@ -203,10 +199,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
   /* USER CODE END USART1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_USART1_CLK_DISABLE();
-  
-    /**USART1 GPIO Configuration    
+
+    /**USART1 GPIO Configuration
     PA9     ------> USART1_TX
-    PA10     ------> USART1_RX 
+    PA10     ------> USART1_RX
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
 
@@ -233,14 +229,14 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
   /* USER CODE END SPI3_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_SPI3_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOG_CLK_ENABLE();
     HAL_PWREx_EnableVddIO2();
-    /**SPI3 GPIO Configuration    
+    /**SPI3 GPIO Configuration
     PB4 (NJTRST)     ------> SPI3_MISO
     PG9     ------> SPI3_SCK
-    PB5     ------> SPI3_MOSI 
+    PB5     ------> SPI3_MOSI
     */
     GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -257,7 +253,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
     /* SPI3 interrupt Init */
-    HAL_NVIC_SetPriority(SPI3_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(SPI3_IRQn, 4, 0);
     HAL_NVIC_EnableIRQ(SPI3_IRQn);
   /* USER CODE BEGIN SPI3_MspInit 1 */
 
@@ -281,11 +277,11 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
   /* USER CODE END SPI3_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_SPI3_CLK_DISABLE();
-  
-    /**SPI3 GPIO Configuration    
+
+    /**SPI3 GPIO Configuration
     PB4 (NJTRST)     ------> SPI3_MISO
     PG9     ------> SPI3_SCK
-    PB5     ------> SPI3_MOSI 
+    PB5     ------> SPI3_MOSI
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_4|GPIO_PIN_5);
 

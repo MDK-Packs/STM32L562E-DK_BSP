@@ -4,44 +4,108 @@ Platform project
 The **Platform** project configures the hardware of the evaluation board
 and is a CMSIS-RTOS2 based software template that can be further expanded.
 
-RTX5 Real-Time Operating System
--------------------------------
-The [RTX5 RTOS](https://arm-software.github.io/CMSIS_5/RTOS2/html/rtx5_impl.html) 
-implements the resource management. It is configured with the following settings:
+RTOS: Keil RTX5 Real-Time Operating System
+------------------------------------------
 
-- Global Dynamic Memory size: 24000 bytes
-- Default Thread Stack size: 3072 bytes
+The real-time operating system [Keil RTX5](https://arm-software.github.io/CMSIS_5/RTOS2/html/rtx5_impl.html) implements the resource management. 
 
-STMicroelectronics STM32L562E-DK Target Board
----------------------------------------------
-The Board layer contains the following configured interface drivers:
+It is configured with the following settings:
 
-**CMSIS-Driver USART1** routed to Virtual COM port (ST-LINK):
- - RX: ST-LINK-UART1_RX (PA10)
- - TX: ST-LINK-UART1_TX (PA9)
+- [Global Dynamic Memory size](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#systemConfig): 24000 bytes
+- [Default Thread Stack size](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#threadConfig): 3072 bytes
+- [Event Recorder Configuration](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#evtrecConfig)
+  - [Global Initialization](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html#evtrecConfigGlobIni): 1
+    - Start Recording: 1
 
-**CMSIS-Driver USART6** routed to Arduino UNO R3 connector (CN12):
- - RX: D0 LPUART1_RX (PB10)
- - TX: D1 LPUART1_TX (PB11)
+Refer to [Configure RTX v5](https://arm-software.github.io/CMSIS_5/RTOS2/html/config_rtx5.html) for a detailed description of all configuration options.
 
-**CMSIS-Driver SPI3** routed to Arduino UNO R3 connector (CN11):
- - SCK:  D13 SPI3_SCK (PG9)
- - MISO: D12 SPI3_MISO (PB4)
- - MOSI: D11 SPI3_MOSI (PB5)
+Board: STMicroelectronics STM32L562E-DK
+---------------------------------------
 
-**GPIO** pins routed to Arduino UNO R3 connector (CN11):
- - output: D10 SPI_CSn (PE0)
- - input:  D9 TIM4_CH4 (PB9)
+The tables below list the device configuration for this board. This setup is configured using **STM32CubeMX**, 
+an interactive tool provided by ST for device configuration. Refer to ["Create Projects with STM32Cube HAL and STM32CubeMX"](https://www.keil.com/pack/doc/STM32Cube) for additional information.
 
-**CMSIS-Driver VIO** with the following board hardware mapping:
- - vioBUTTON0:        Button USER (PC13)
- - vioLED0:           LD9 RED (PD3)
- - vioLED1:           LD9 GREEN (PG12)
- - vioMotionGyro:     iNEMO 3D gyroscopee (LSM6DSO)
- - vioMotionAccelero: iNEMO 3D accelerometer (LSM6DSO)
+The heap/stack setup and the CMSIS-Driver assignment is in configuration files of related software components.
+**STM32CubeMX** is used for all other settings.
 
-**STDIO** routed to Virtual COM port (ST-LINK, baudrate = 115200)
+The example project can be re-configured to work on custom hardware. Refer to ["Migrate STM32 Based Example Projects to Custom Hardware"](https://github.com/MDK-Packs/Documentation/tree/master/Porting_to_Custom_Hardware) for information. 
 
-The board configuration can be modified using 
-[STM32CubeMX](https://www.keil.com/stmicroelectronics-stm32) 
-and is stored in the file `STCubeGenerated.ioc`.
+### System Configuration
+
+| System Component        | Setting
+|:------------------------|:----------------------------------------
+| Device                  | STM32L562QEIxQ
+| ICACHE                  | Mode: 2-ways set associative cache
+| Heap                    | 64 kB (configured in startup file)
+| Stack (MSP)             | 1 kB (configured in startup file)
+
+### Clock Configuration
+
+| Clock                   | Setting
+|:------------------------|:----------------------------------------
+| HCLK                    | 110 MHz
+| FCLK                    | 110 MHz
+| APB1                    | 110 MHz
+| APB2                    | 110 MHz
+| To USART1               | 110 MHz
+| To LPUART1              |  16 MHz
+
+### GPIO Configuration and usage
+
+| GPIO | Signal / Label   | GPIO Settings                                 | Usage
+|:-----|:-----------------|:----------------------------------------------|:-----
+| PA10 | USART1_RX        | Alternate Function, Speed=Very High           | ST-LINK Virtual COM port (T_VCP_RX)
+| PA9  | USART1_TX        | Alternate Function, Speed=Very High           | ST-LINK Virtual COM port (T_VCP_TX)
+| PB10 | LPUART1_RX       | Alternate Function, Speed=Very High           | Arduino UNO R3 pin D0 (RX)
+| PB11 | LPUART1_TX       | Alternate Function, Speed=Very High           | Arduino UNO R3 pin D1 (TX)
+| PB4  | SPI3_MISO        | Alternate Function, Speed=Very High           | Arduino UNO R3 pin D12 (MISO)
+| PB5  | SPI3_MOSI        | Alternate Function, Speed=Very High           | Arduino UNO R3 pin D11 (MOSI)
+| PG9  | SPI3_SCK         | Alternate Function, Speed=Very High           | Arduino UNO R3 pin D13 (SCK)
+| PB9  | ARDUINO_IO_D9    | Input mode                                    | Arduino UNO R3 pin D9
+| PE0  | ARDUINO_IO_D10   | Output Push Pull, Level=High, Speed=Very High | Arduino UNO R3 pin D10
+| PC13 | vioBUTTON0       | not configured via CubeMX                     | Button USER
+| PD3  | vioLED0          | not configured via CubeMX                     | LD9 RED
+| PG12 | vioLED1          | not configured via CubeMX                     | LD10 GREEN
+
+### NVIC Configuration
+
+ - Priority Group = 3 bits for preemption priority 0 bits for subpriority
+
+| NVIC Interrupt                          | Preempt Priority | Code Generation
+|:----------------------------------------|:-----------------|:---------------
+| Non maskable interrupt                  | 0                | Generate IRQ handler
+| Hard fault interrupt                    | 0                | Generate IRQ handler
+| Memory Management fault                 | 0                | Generate IRQ handler
+| Prefetch fault, memory access fault     | 0                | Generate IRQ handler
+| Undefined instruction or illegal state  | 0                | Generate IRQ handler
+| System service call via SWI instruction | 0                | none
+| Debug monitor                           | 0                | Generate IRQ handler
+| Pendable request for system service     | 0                | none
+| Time base: System tick timer            | 0                | none
+| LPUART1 global / wake-up                | 4                | Generate IRQ handler, Call HAL handler
+| SPI3 global                             | 4                | Generate IRQ handler, Call HAL handler
+
+### Connectivity Peripherals Configuration
+
+| Peripheral   | Mode / Settings                                                                                                    | IRQ | DMA | Note
+|:-------------|:-------------------------------------------------------------------------------------------------------------------|:----|:----|:----
+| SPI3         | Full-Duplex Master, Hardware NSS Signal=off, Do Not Generate Initialization Function Call                          | yes | no  | Arduino UNO R3 connector (CN11)
+| LPUART1      | Asynchronous, Hardware Flow Control=off, Do Not Generate Initialization Function Call                              | yes | no  | Arduino UNO R3 connector (CN12)
+| USART1       | Asynchronous, Hardware Flow Control=off, Baud Rate: 115200 Bits/s, Word Length: 8 Bits, Parity: None, Stop Bits: 1 | no  | no  | ST-LINK Virtual COM port
+
+**STDIO** is routed to ST-LINK Virtual COM port (USART1)
+
+### CMSIS-Driver mapping
+
+| CMSIS-Driver | Peripheral
+|:-------------|:----------
+| SPI3         | SPI3
+| USART6       | LPUART1
+
+| CMSIS-Driver VIO  | Physical board hardware
+|:------------------|:-----------------------
+| vioBUTTON0        | Button USER (PC13)
+| vioLED0           | LD9 RED (PD3)
+| vioLED1           | LD10 GREEN (PG12)
+| vioMotionGyro     | iNEMO 3D gyroscope (LSM6DSO)
+| vioMotionAccelero | iNEMO 3D accelerometer (LSM6DSO)

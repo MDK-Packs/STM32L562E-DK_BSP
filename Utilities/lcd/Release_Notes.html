@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Release Notes for Basic_GUI Utilities Drivers</title>
+  <title>Release Notes for LCD Utility Drivers</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="../../_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -22,10 +22,10 @@
 <div class="card fluid">
 <div class="sectione dark">
 <center>
-<h1 id="release-notes-for-basic_gui-utilities-drivers"><small>Release Notes for </small> Basic_GUI Utilities Drivers</h1>
+<h1 id="release-notes-for-lcd-utility-drivers"><small>Release Notes for </small> LCD Utility Drivers</h1>
 <p>Copyright © 2019 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="../../_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
 </center>
 </div>
 </div>
@@ -51,19 +51,50 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.0.1 / 10-May-2019</label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V2.0.0 / 25-February-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p>Add LINE macro in basic_gui.h</p>
+<ul>
+<li>Rename basic_gui.c/.h into stm32_lcd.c/.h</li>
+<li>Rename GUI_* APIs into UTILS_LCD_* APIs</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>This version breaks the compatibility with the previous versions</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>This software must be used with Components/common version v7.0.0 or greater.</li>
+</ul>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1" checked aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 12-April-2019</label>
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.0.2 / 30-October-2019</label>
 <div>
 <h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>Update st_logo.png inclusion path in Release notes.</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.0.1 / 10-May-2019</label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<ul>
+<li>Add LINE macro in basic_gui.h</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 12-April-2019</label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="component-release">Component release</h3>
-<p>First Official release of Basic_GUI utilities drivers in line with STM32Cube BSP drivers development guidelines (UM2298)</p>
-<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>First Official release of Basic_GUI utilities drivers in line with STM32Cube BSP drivers development guidelines (UM2298)</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
 <p>This software release is compatible with BSP Common V6.0.0 or above</p>
 </div>
 </div>

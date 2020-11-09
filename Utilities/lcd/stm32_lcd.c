@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    basic_gui.c
+  * @file    stm32_lcd.c
   * @author  MCD Application Team
   * @brief   This file includes the basic functionalities to drive LCD
   ******************************************************************************
@@ -34,42 +34,42 @@
          BSP_LCD_GetYSize
          BSP_LCD_SetActiveLayer
 
-   - At application level, once the LCD is initialized, user should call GUI_SetFuncDriver()
+   - At application level, once the LCD is initialized, user should call UTIL_LCD_SetFuncDriver()
      API to link board LCD drivers to BASIC GUI LCD drivers.
      User can then call the BASIC GUI services:
-         GUI_SetFuncDriver()
-         GUI_SetLayer()
-         GUI_SetDevice()
-         GUI_SetTextColor()
-         GUI_GetTextColor()
-         GUI_SetBackColor()
-         GUI_GetBackColor()
-         GUI_SetFont()
-         GUI_GetFont()
-         GUI_Clear)
-         GUI_ClearStringLine()
-         GUI_DisplayStringAtLine()
-         GUI_DisplayStringAt()
-         GUI_DisplayChar()
-         GUI_GetPixel()
-         GUI_SetPixel()
-         GUI_FillRGBRect()
-         GUI_DrawHLine()
-         GUI_DrawVLine()
-         GUI_DrawBitmap()
-         GUI_FillRect()
-         GUI_DrawLine()
-         GUI_DrawRect()
-         GUI_DrawCircle()
-         GUI_DrawPolygon()
-         GUI_DrawEllipse()
-         GUI_FillCircle()
-         GUI_FillPolygon()
-         GUI_FillEllipse()
+         UTIL_LCD_SetFuncDriver()
+         UTIL_LCD_SetLayer()
+         UTIL_LCD_SetDevice()
+         UTIL_LCD_SetTextColor()
+         UTIL_LCD_GetTextColor()
+         UTIL_LCD_SetBackColor()
+         UTIL_LCD_GetBackColor()
+         UTIL_LCD_SetFont()
+         UTIL_LCD_GetFont()
+         UTIL_LCD_Clear)
+         UTIL_LCD_ClearStringLine()
+         UTIL_LCD_DisplayStringAtLine()
+         UTIL_LCD_DisplayStringAt()
+         UTIL_LCD_DisplayChar()
+         UTIL_LCD_GetPixel()
+         UTIL_LCD_SetPixel()
+         UTIL_LCD_FillRGBRect()
+         UTIL_LCD_DrawHLine()
+         UTIL_LCD_DrawVLine()
+         UTIL_LCD_DrawBitmap()
+         UTIL_LCD_FillRect()
+         UTIL_LCD_DrawLine()
+         UTIL_LCD_DrawRect()
+         UTIL_LCD_DrawCircle()
+         UTIL_LCD_DrawPolygon()
+         UTIL_LCD_DrawEllipse()
+         UTIL_LCD_FillCircle()
+         UTIL_LCD_FillPolygon()
+         UTIL_LCD_FillEllipse()
 ------------------------------------------------------------------------------*/
 
 /* Includes ------------------------------------------------------------------*/
-#include "basic_gui.h"
+#include "stm32_lcd.h"
 #include "../Fonts/font24.c"
 #include "../Fonts/font20.c"
 #include "../Fonts/font16.c"
@@ -88,15 +88,15 @@
   * @{
   */
 
-/** @defgroup BASIC_GUI BASIC GUI
+/** @defgroup STM32_LCD STM32 LCD Utility
   * @{
   */
 
-#ifndef GUI_MAX_LAYERS_NBR
-  #define GUI_MAX_LAYERS_NBR    2U
+#ifndef UTIL_LCD_MAX_LAYERS_NBR
+  #define UTIL_LCD_MAX_LAYERS_NBR    2U
 #endif
 
-/** @defgroup BASIC_GUI_Private_Macros BASIC GUI Private Macros
+/** @defgroup UTIL_LCD_Private_Macros STM32 LCD Utility Private Macros
   * @{
   */
 #define ABS(X)                 ((X) > 0 ? (X) : -(X))
@@ -115,7 +115,7 @@
   * @}
   */
 
-/** @defgroup BASIC_GUI_Private_Types BASIC GUI Private Types
+/** @defgroup UTIL_LCD_Private_Types STM32 LCD Utility Private Types
   * @{
   */
 typedef struct
@@ -132,21 +132,21 @@ typedef struct
   * @}
   */
 
-/** @defgroup BASIC_GUI_Private_Variables BASIC GUI Private Variables
+/** @defgroup UTIL_LCD_Private_Variables STM32 LCD Utility Private Variables
   * @{
   */
 
 /**
   * @brief  Current Drawing Layer properties variable
   */
-static GUI_Ctx_t DrawProp[GUI_MAX_LAYERS_NBR];
-static GUI_Drv_t FuncDriver;
+static UTIL_LCD_Ctx_t DrawProp[UTIL_LCD_MAX_LAYERS_NBR];
+static LCD_UTILS_Drv_t FuncDriver;
 
 /**
   * @}
   */
 
-/** @defgroup BASIC_GUI_Private_FunctionPrototypes BASIC GUI Private FunctionPrototypes
+/** @defgroup UTIL_LCD_Private_FunctionPrototypes STM32 LCD Utility Private FunctionPrototypes
   * @{
   */
 static void DrawChar(uint32_t Xpos, uint32_t Ypos, const uint8_t *pData);
@@ -155,15 +155,15 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color);
   * @}
   */
 
-/** @defgroup BASIC_GUI_Exported_Functions BASIC GUI Exported Functions
+/** @defgroup UTIL_LCD_Exported_Functions STM32 LCD Utility Exported Functions
   * @{
   */
 
 /**
-  * @brief  Link board LCD drivers to BASIC GUI LCD drivers
+  * @brief  Link board LCD drivers to STM32 LCD Utility drivers
   * @param  pDrv Structure of LCD functions
   */
-void GUI_SetFuncDriver(const GUI_Drv_t *pDrv)
+void UTIL_LCD_SetFuncDriver(const LCD_UTILS_Drv_t *pDrv)
 {
   FuncDriver.DrawBitmap     = pDrv->DrawBitmap;
   FuncDriver.FillRGBRect    = pDrv->FillRGBRect;
@@ -177,24 +177,24 @@ void GUI_SetFuncDriver(const GUI_Drv_t *pDrv)
   FuncDriver.SetLayer       = pDrv->SetLayer;
   FuncDriver.GetFormat      = pDrv->GetFormat;
 
-  DrawProp->GuiLayer = 0;
-  DrawProp->GuiDevice = 0;
-  FuncDriver.GetXSize(0, &DrawProp->GuiXsize);
-  FuncDriver.GetYSize(0, &DrawProp->GuiYsize);
-  FuncDriver.GetFormat(0, &DrawProp->GuiPixelFormat);
+  DrawProp->LcdLayer = 0;
+  DrawProp->LcdDevice = 0;
+  FuncDriver.GetXSize(0, &DrawProp->LcdXsize);
+  FuncDriver.GetYSize(0, &DrawProp->LcdYsize);
+  FuncDriver.GetFormat(0, &DrawProp->LcdPixelFormat);
 }
 
 /**
   * @brief  Set the LCD layer.
   * @param  Layer  LCD layer
   */
-void GUI_SetLayer(uint32_t Layer)
+void UTIL_LCD_SetLayer(uint32_t Layer)
 {
   if(FuncDriver.SetLayer != NULL)
   {
-    if(FuncDriver.SetLayer(DrawProp->GuiDevice, Layer) == 0)
+    if(FuncDriver.SetLayer(DrawProp->LcdDevice, Layer) == 0)
     {
-      DrawProp->GuiLayer = Layer;
+      DrawProp->LcdLayer = Layer;
     }
   }
 }
@@ -203,78 +203,78 @@ void GUI_SetLayer(uint32_t Layer)
   * @brief  Set the LCD instance to be used.
   * @param  Device  LCD instance
   */
-void GUI_SetDevice(uint32_t Device)
+void UTIL_LCD_SetDevice(uint32_t Device)
 {
-  DrawProp->GuiDevice = Device;
-  FuncDriver.GetXSize(Device, &DrawProp->GuiXsize);
-  FuncDriver.GetYSize(Device, &DrawProp->GuiYsize);
+  DrawProp->LcdDevice = Device;
+  FuncDriver.GetXSize(Device, &DrawProp->LcdXsize);
+  FuncDriver.GetYSize(Device, &DrawProp->LcdYsize);
 }
 
 /**
   * @brief  Sets the LCD text color.
   * @param  Color  Text color code
   */
-void GUI_SetTextColor(uint32_t Color)
+void UTIL_LCD_SetTextColor(uint32_t Color)
 {
-  DrawProp[DrawProp->GuiLayer].TextColor = Color;
+  DrawProp[DrawProp->LcdLayer].TextColor = Color;
 }
 
 /**
   * @brief  Gets the LCD text color.
   * @retval Used text color.
   */
-uint32_t GUI_GetTextColor(void)
+uint32_t UTIL_LCD_GetTextColor(void)
 {
-  return DrawProp[DrawProp->GuiLayer].TextColor;
+  return DrawProp[DrawProp->LcdLayer].TextColor;
 }
 
 /**
   * @brief  Sets the LCD background color.
   * @param  Color  Layer background color code
   */
-void GUI_SetBackColor(uint32_t Color)
+void UTIL_LCD_SetBackColor(uint32_t Color)
 {
-  DrawProp[DrawProp->GuiLayer].BackColor = Color;
+  DrawProp[DrawProp->LcdLayer].BackColor = Color;
 }
 
 /**
   * @brief  Gets the LCD background color.
   * @retval Used background color
   */
-uint32_t GUI_GetBackColor(void)
+uint32_t UTIL_LCD_GetBackColor(void)
 {
-  return DrawProp[DrawProp->GuiLayer].BackColor;
+  return DrawProp[DrawProp->LcdLayer].BackColor;
 }
 
 /**
   * @brief  Sets the LCD text font.
   * @param  fonts  Layer font to be used
   */
-void GUI_SetFont(sFONT *fonts)
+void UTIL_LCD_SetFont(sFONT *fonts)
 {
-  DrawProp[DrawProp->GuiLayer].pFont = fonts;
+  DrawProp[DrawProp->LcdLayer].pFont = fonts;
 }
 
 /**
   * @brief  Gets the LCD text font.
   * @retval Used layer font
   */
-sFONT *GUI_GetFont(void)
+sFONT *UTIL_LCD_GetFont(void)
 {
-  return DrawProp[DrawProp->GuiLayer].pFont;
+  return DrawProp[DrawProp->LcdLayer].pFont;
 }
 
 /**
   * @brief  Draws a RGB rectangle in currently active layer.
-  * @param  pData   Pointer to RGB rectangle data  
+  * @param  pData   Pointer to RGB rectangle data
   * @param  Xpos    X position
   * @param  Ypos    Y position
   * @param  Length  Line length
   */
-void GUI_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t Width, uint32_t Height)
+void UTIL_LCD_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t Width, uint32_t Height)
 {
-  /* Write RGB rectangle data */  
-  FuncDriver.FillRGBRect(DrawProp->GuiDevice, Xpos, Ypos, pData, Width, Height);
+  /* Write RGB rectangle data */
+  FuncDriver.FillRGBRect(DrawProp->LcdDevice, Xpos, Ypos, pData, Width, Height);
 }
 
 /**
@@ -284,16 +284,16 @@ void GUI_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t Widt
   * @param  Length  Line length
   * @param  Color   Draw color
   */
-void GUI_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
+void UTIL_LCD_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
 {
   /* Write line */
-  if(DrawProp->GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+  if(DrawProp->LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
   {
-    FuncDriver.DrawHLine(DrawProp->GuiDevice, Xpos, Ypos, Length, CONVERTARGB88882RGB565(Color));
+    FuncDriver.DrawHLine(DrawProp->LcdDevice, Xpos, Ypos, Length, CONVERTARGB88882RGB565(Color));
   }
   else
   {
-    FuncDriver.DrawHLine(DrawProp->GuiDevice, Xpos, Ypos, Length, Color);
+    FuncDriver.DrawHLine(DrawProp->LcdDevice, Xpos, Ypos, Length, Color);
   }
 }
 
@@ -304,16 +304,16 @@ void GUI_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color
   * @param  Length  Line length
   * @param  Color   Draw color
   */
-void GUI_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
+void UTIL_LCD_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
 {
   /* Write line */
-  if(DrawProp->GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+  if(DrawProp->LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
   {
-    FuncDriver.DrawVLine(DrawProp->GuiDevice, Xpos, Ypos, Length, CONVERTARGB88882RGB565(Color));
+    FuncDriver.DrawVLine(DrawProp->LcdDevice, Xpos, Ypos, Length, CONVERTARGB88882RGB565(Color));
   }
   else
   {
-    FuncDriver.DrawVLine(DrawProp->GuiDevice, Xpos, Ypos, Length, Color);
+    FuncDriver.DrawVLine(DrawProp->LcdDevice, Xpos, Ypos, Length, Color);
   }
 }
 
@@ -323,11 +323,11 @@ void GUI_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color
   * @param  Ypos     Y position
   * @retval Color    pixel color
   */
-void GUI_GetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t *Color)
+void UTIL_LCD_GetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t *Color)
 {
   /* Get Pixel */
-  FuncDriver.GetPixel(DrawProp->GuiDevice, Xpos, Ypos, Color);
-  if(DrawProp->GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+  FuncDriver.GetPixel(DrawProp->LcdDevice, Xpos, Ypos, Color);
+  if(DrawProp->LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
   {
     *Color = CONVERTRGB5652ARGB8888(*Color);
   }
@@ -339,16 +339,16 @@ void GUI_GetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t *Color)
   * @param  Ypos     Y position
   * @param  Color    Pixel color
   */
-void GUI_SetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t Color)
+void UTIL_LCD_SetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t Color)
 {
   /* Set Pixel */
-  if(DrawProp->GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+  if(DrawProp->LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
   {
-    FuncDriver.SetPixel(DrawProp->GuiDevice, Xpos, Ypos, CONVERTARGB88882RGB565(Color));
+    FuncDriver.SetPixel(DrawProp->LcdDevice, Xpos, Ypos, CONVERTARGB88882RGB565(Color));
   }
   else
   {
-    FuncDriver.SetPixel(DrawProp->GuiDevice, Xpos, Ypos, Color);
+    FuncDriver.SetPixel(DrawProp->LcdDevice, Xpos, Ypos, Color);
   }
 }
 
@@ -356,20 +356,20 @@ void GUI_SetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t Color)
   * @brief  Clears the whole currently active layer of LTDC.
   * @param  Color  Color of the background
   */
-void GUI_Clear(uint32_t Color)
+void UTIL_LCD_Clear(uint32_t Color)
 {
   /* Clear the LCD */
-  GUI_FillRect(0, 0, DrawProp->GuiXsize, DrawProp->GuiYsize, Color);
+  UTIL_LCD_FillRect(0, 0, DrawProp->LcdXsize, DrawProp->LcdYsize, Color);
 }
 
 /**
   * @brief  Clears the selected line in currently active layer.
   * @param  Line  Line to be cleared
   */
-void GUI_ClearStringLine(uint32_t Line)
+void UTIL_LCD_ClearStringLine(uint32_t Line)
 {
   /* Draw rectangle with background color */
-  GUI_FillRect(0, (Line * DrawProp[DrawProp->GuiLayer].pFont->Height), DrawProp->GuiXsize, DrawProp[DrawProp->GuiLayer].pFont->Height, DrawProp[DrawProp->GuiLayer].BackColor);
+  UTIL_LCD_FillRect(0, (Line * DrawProp[DrawProp->LcdLayer].pFont->Height), DrawProp->LcdXsize, DrawProp[DrawProp->LcdLayer].pFont->Height, DrawProp[DrawProp->LcdLayer].BackColor);
 }
 
 /**
@@ -379,10 +379,10 @@ void GUI_ClearStringLine(uint32_t Line)
   * @param  Ascii Character ascii code
   *           This parameter must be a number between Min_Data = 0x20 and Max_Data = 0x7E
   */
-void GUI_DisplayChar(uint32_t Xpos, uint32_t Ypos, uint8_t Ascii)
+void UTIL_LCD_DisplayChar(uint32_t Xpos, uint32_t Ypos, uint8_t Ascii)
 {
-  DrawChar(Xpos, Ypos, &DrawProp[DrawProp->GuiLayer].pFont->table[(Ascii-' ') *\
-  DrawProp[DrawProp->GuiLayer].pFont->Height * ((DrawProp[DrawProp->GuiLayer].pFont->Width + 7) / 8)]);
+  DrawChar(Xpos, Ypos, &DrawProp[DrawProp->LcdLayer].pFont->table[(Ascii-' ') *\
+  DrawProp[DrawProp->LcdLayer].pFont->Height * ((DrawProp[DrawProp->LcdLayer].pFont->Width + 7) / 8)]);
 }
 
 /**
@@ -396,7 +396,7 @@ void GUI_DisplayChar(uint32_t Xpos, uint32_t Ypos, uint8_t Ascii)
   *            @arg  RIGHT_MODE
   *            @arg  LEFT_MODE
   */
-void GUI_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_AlignModeTypdef Mode)
+void UTIL_LCD_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_AlignModeTypdef Mode)
 {
   uint32_t refcolumn = 1, i = 0;
   uint32_t size = 0, xsize = 0;
@@ -406,13 +406,13 @@ void GUI_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_Align
   while (*ptr++) size ++ ;
 
   /* Characters number per line */
-  xsize = (DrawProp->GuiXsize/DrawProp[DrawProp->GuiLayer].pFont->Width);
+  xsize = (DrawProp->LcdXsize/DrawProp[DrawProp->LcdLayer].pFont->Width);
 
   switch (Mode)
   {
   case CENTER_MODE:
     {
-      refcolumn = Xpos + ((xsize - size)* DrawProp[DrawProp->GuiLayer].pFont->Width) / 2;
+      refcolumn = Xpos + ((xsize - size)* DrawProp[DrawProp->LcdLayer].pFont->Width) / 2;
       break;
     }
   case LEFT_MODE:
@@ -422,7 +422,7 @@ void GUI_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_Align
     }
   case RIGHT_MODE:
     {
-      refcolumn = - Xpos + ((xsize - size)*DrawProp[DrawProp->GuiLayer].pFont->Width);
+      refcolumn = - Xpos + ((xsize - size)*DrawProp[DrawProp->LcdLayer].pFont->Width);
       break;
     }
   default:
@@ -439,12 +439,12 @@ void GUI_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_Align
   }
 
   /* Send the string character by character on LCD */
-  while ((*Text != 0) & (((DrawProp->GuiXsize - (i*DrawProp[DrawProp->GuiLayer].pFont->Width)) & 0xFFFF) >= DrawProp[DrawProp->GuiLayer].pFont->Width))
+  while ((*Text != 0) & (((DrawProp->LcdXsize - (i*DrawProp[DrawProp->LcdLayer].pFont->Width)) & 0xFFFF) >= DrawProp[DrawProp->LcdLayer].pFont->Width))
   {
     /* Display one character on LCD */
-    GUI_DisplayChar(refcolumn, Ypos, *Text);
+    UTIL_LCD_DisplayChar(refcolumn, Ypos, *Text);
     /* Decrement the column position by 16 */
-    refcolumn += DrawProp[DrawProp->GuiLayer].pFont->Width;
+    refcolumn += DrawProp[DrawProp->LcdLayer].pFont->Width;
 
     /* Point on the next character */
     Text++;
@@ -457,9 +457,9 @@ void GUI_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_Align
   * @param  Line: Line where to display the character shape
   * @param  ptr: Pointer to string to display on LCD
   */
-void GUI_DisplayStringAtLine(uint32_t Line, uint8_t *ptr)
+void UTIL_LCD_DisplayStringAtLine(uint32_t Line, uint8_t *ptr)
 {
-  GUI_DisplayStringAt(0, LINE(Line), ptr, LEFT_MODE);
+  UTIL_LCD_DisplayStringAt(0, LINE(Line), ptr, LEFT_MODE);
 }
 
 /**
@@ -470,7 +470,7 @@ void GUI_DisplayStringAtLine(uint32_t Line, uint8_t *ptr)
   * @param  Ypos2 Point 2 Y position
   * @param  Color Draw color
   */
-void GUI_DrawLine(uint32_t Xpos1, uint32_t Ypos1, uint32_t Xpos2, uint32_t Ypos2, uint32_t Color)
+void UTIL_LCD_DrawLine(uint32_t Xpos1, uint32_t Ypos1, uint32_t Xpos2, uint32_t Ypos2, uint32_t Color)
 {
   int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0,
   yinc1 = 0, yinc2 = 0, den = 0, num = 0, numadd = 0, numpixels = 0,
@@ -528,7 +528,7 @@ void GUI_DrawLine(uint32_t Xpos1, uint32_t Ypos1, uint32_t Xpos2, uint32_t Ypos2
 
   for (curpixel = 0; curpixel <= numpixels; curpixel++)
   {
-    GUI_SetPixel(x, y, Color);   /* Draw the current pixel */
+    UTIL_LCD_SetPixel(x, y, Color);   /* Draw the current pixel */
     num += numadd;                            /* Increase the numerator by the top of the fraction */
     if (num >= den)                           /* Check if numerator >= denominator */
     {
@@ -549,15 +549,15 @@ void GUI_DrawLine(uint32_t Xpos1, uint32_t Ypos1, uint32_t Xpos2, uint32_t Ypos2
   * @param  Height Rectangle height
   * @param  Color  Draw color
   */
-void GUI_DrawRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height, uint32_t Color)
+void UTIL_LCD_DrawRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height, uint32_t Color)
 {
   /* Draw horizontal lines */
-  GUI_DrawHLine(Xpos, Ypos, Width, Color);
-  GUI_DrawHLine(Xpos, (Ypos+ Height - 1U), Width, Color);
+  UTIL_LCD_DrawHLine(Xpos, Ypos, Width, Color);
+  UTIL_LCD_DrawHLine(Xpos, (Ypos+ Height - 1U), Width, Color);
 
   /* Draw vertical lines */
-  GUI_DrawVLine(Xpos, Ypos, Height, Color);
-  GUI_DrawVLine((Xpos + Width - 1U), Ypos, Height, Color);
+  UTIL_LCD_DrawVLine(Xpos, Ypos, Height, Color);
+  UTIL_LCD_DrawVLine((Xpos + Width - 1U), Ypos, Height, Color);
 }
 
 /**
@@ -567,7 +567,7 @@ void GUI_DrawRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height,
   * @param  Radius  Circle radius
   * @param  Color   Draw color
   */
-void GUI_DrawCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Color)
+void UTIL_LCD_DrawCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Color)
 {
   int32_t   decision;  /* Decision Variable */
   uint32_t  current_x; /* Current X Value */
@@ -579,51 +579,51 @@ void GUI_DrawCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
 
   while (current_x <= current_y)
   {
-    if((Ypos - current_y) < DrawProp->GuiYsize)
+    if((Ypos - current_y) < DrawProp->LcdYsize)
     {
-      if((Xpos + current_x) < DrawProp->GuiXsize)
+      if((Xpos + current_x) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos + current_x), (Ypos - current_y), Color);
+        UTIL_LCD_SetPixel((Xpos + current_x), (Ypos - current_y), Color);
       }
-      if((Xpos - current_x) < DrawProp->GuiXsize)
+      if((Xpos - current_x) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos - current_x), (Ypos - current_y), Color);
+        UTIL_LCD_SetPixel((Xpos - current_x), (Ypos - current_y), Color);
       }
     }
 
-    if((Ypos - current_x) < DrawProp->GuiYsize)
+    if((Ypos - current_x) < DrawProp->LcdYsize)
     {
-      if((Xpos + current_y) < DrawProp->GuiXsize)
+      if((Xpos + current_y) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos + current_y), (Ypos - current_x), Color);
+        UTIL_LCD_SetPixel((Xpos + current_y), (Ypos - current_x), Color);
       }
-      if((Xpos - current_y) < DrawProp->GuiXsize)
+      if((Xpos - current_y) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos - current_y), (Ypos - current_x), Color);
+        UTIL_LCD_SetPixel((Xpos - current_y), (Ypos - current_x), Color);
       }
     }
 
-    if((Ypos + current_y) < DrawProp->GuiYsize)
+    if((Ypos + current_y) < DrawProp->LcdYsize)
     {
-      if((Xpos + current_x) < DrawProp->GuiXsize)
+      if((Xpos + current_x) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos + current_x), (Ypos + current_y), Color);
+        UTIL_LCD_SetPixel((Xpos + current_x), (Ypos + current_y), Color);
       }
-      if((Xpos - current_x) < DrawProp->GuiXsize)
+      if((Xpos - current_x) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos - current_x), (Ypos + current_y), Color);
+        UTIL_LCD_SetPixel((Xpos - current_x), (Ypos + current_y), Color);
       }
     }
 
-    if((Ypos + current_x) < DrawProp->GuiYsize)
+    if((Ypos + current_x) < DrawProp->LcdYsize)
     {
-      if((Xpos + current_y) < DrawProp->GuiXsize)
+      if((Xpos + current_y) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos + current_y), (Ypos + current_x), Color);
+        UTIL_LCD_SetPixel((Xpos + current_y), (Ypos + current_x), Color);
       }
-      if((Xpos - current_y) < DrawProp->GuiXsize)
+      if((Xpos - current_y) < DrawProp->LcdXsize)
       {
-        GUI_SetPixel((Xpos - current_y), (Ypos + current_x), Color);
+        UTIL_LCD_SetPixel((Xpos - current_y), (Ypos + current_x), Color);
       }
     }
 
@@ -646,7 +646,7 @@ void GUI_DrawCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
   * @param  PointCount  Number of points
   * @param  Color       Draw color
   */
-void GUI_DrawPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
+void UTIL_LCD_DrawPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
 {
   int16_t x_pos = 0, y_pos = 0;
 
@@ -655,14 +655,14 @@ void GUI_DrawPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
     return;
   }
 
-  GUI_DrawLine(Points->X, Points->Y, (Points+PointCount-1)->X, (Points+PointCount-1)->Y, Color);
+  UTIL_LCD_DrawLine(Points->X, Points->Y, (Points+PointCount-1)->X, (Points+PointCount-1)->Y, Color);
 
   while(--PointCount)
   {
     x_pos = Points->X;
     y_pos = Points->Y;
     Points++;
-    GUI_DrawLine(x_pos, y_pos, Points->X, Points->Y, Color);
+    UTIL_LCD_DrawLine(x_pos, y_pos, Points->X, Points->Y, Color);
   }
 }
 
@@ -674,7 +674,7 @@ void GUI_DrawPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
   * @param  YRadius Ellipse Y radius
   * @param  Color   Draw color
   */
-void GUI_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Color)
+void UTIL_LCD_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Color)
 {
   int x_pos = 0, y_pos = -YRadius, err = 2-2*XRadius, e2;
   float k = 0, rad1 = 0, rad2 = 0;
@@ -686,10 +686,10 @@ void GUI_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Colo
 
   do
   {
-    GUI_SetPixel((Xpos-(uint32_t)(x_pos/k)), (Ypos + y_pos), Color);
-    GUI_SetPixel((Xpos+(uint32_t)(x_pos/k)), (Ypos + y_pos), Color);
-    GUI_SetPixel((Xpos+(uint32_t)(x_pos/k)), (Ypos - y_pos), Color);
-    GUI_SetPixel((Xpos-(uint32_t)(x_pos/k)), (Ypos - y_pos), Color);
+    UTIL_LCD_SetPixel((Xpos-(uint32_t)(x_pos/k)), (Ypos + y_pos), Color);
+    UTIL_LCD_SetPixel((Xpos+(uint32_t)(x_pos/k)), (Ypos + y_pos), Color);
+    UTIL_LCD_SetPixel((Xpos+(uint32_t)(x_pos/k)), (Ypos - y_pos), Color);
+    UTIL_LCD_SetPixel((Xpos-(uint32_t)(x_pos/k)), (Ypos - y_pos), Color);
 
     e2 = err;
     if (e2 <= x_pos)
@@ -710,9 +710,9 @@ void GUI_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Colo
   * @param  Ypos  Bmp Y position in the LCD
   * @param  pData Pointer to Bmp picture address in the internal Flash
   */
-void GUI_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pData)
+void UTIL_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pData)
 {
-  FuncDriver.DrawBitmap(DrawProp->GuiDevice, Xpos, Ypos, pData);
+  FuncDriver.DrawBitmap(DrawProp->LcdDevice, Xpos, Ypos, pData);
 }
 
 /**
@@ -723,16 +723,16 @@ void GUI_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pData)
   * @param  Height Rectangle height
   * @param  Color  Draw color
   */
-void GUI_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height, uint32_t Color)
+void UTIL_LCD_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height, uint32_t Color)
 {
   /* Fill the rectangle */
-  if(DrawProp->GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+  if(DrawProp->LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
   {
-    FuncDriver.FillRect(DrawProp->GuiDevice, Xpos, Ypos, Width, Height, CONVERTARGB88882RGB565(Color));
+    FuncDriver.FillRect(DrawProp->LcdDevice, Xpos, Ypos, Width, Height, CONVERTARGB88882RGB565(Color));
   }
   else
   {
-    FuncDriver.FillRect(DrawProp->GuiDevice, Xpos, Ypos, Width, Height, Color);
+    FuncDriver.FillRect(DrawProp->LcdDevice, Xpos, Ypos, Width, Height, Color);
   }
 }
 
@@ -743,7 +743,7 @@ void GUI_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height,
   * @param  Radius Circle radius
   * @param  Color  Draw color
   */
-void GUI_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Color)
+void UTIL_LCD_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Color)
 {
   int32_t   decision;  /* Decision Variable */
   uint32_t  current_x; /* Current X Value */
@@ -760,13 +760,13 @@ void GUI_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
     {
       if(current_y >= Xpos)
       {
-        GUI_DrawHLine(0, Ypos + current_x, 2*current_y - (current_y - Xpos), Color);
-        GUI_DrawHLine(0, Ypos - current_x, 2*current_y - (current_y - Xpos), Color);
+        UTIL_LCD_DrawHLine(0, Ypos + current_x, 2*current_y - (current_y - Xpos), Color);
+        UTIL_LCD_DrawHLine(0, Ypos - current_x, 2*current_y - (current_y - Xpos), Color);
       }
       else
       {
-        GUI_DrawHLine(Xpos - current_y, Ypos + current_x, 2*current_y, Color);
-        GUI_DrawHLine(Xpos - current_y, Ypos - current_x, 2*current_y, Color);
+        UTIL_LCD_DrawHLine(Xpos - current_y, Ypos + current_x, 2*current_y, Color);
+        UTIL_LCD_DrawHLine(Xpos - current_y, Ypos - current_x, 2*current_y, Color);
       }
     }
 
@@ -774,13 +774,13 @@ void GUI_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
     {
       if(current_x >= Xpos)
       {
-        GUI_DrawHLine(0, Ypos - current_y, 2*current_x - (current_x - Xpos), Color);
-        GUI_DrawHLine(0, Ypos + current_y, 2*current_x - (current_x - Xpos), Color);
+        UTIL_LCD_DrawHLine(0, Ypos - current_y, 2*current_x - (current_x - Xpos), Color);
+        UTIL_LCD_DrawHLine(0, Ypos + current_y, 2*current_x - (current_x - Xpos), Color);
       }
       else
       {
-        GUI_DrawHLine(Xpos - current_x, Ypos - current_y, 2*current_x, Color);
-        GUI_DrawHLine(Xpos - current_x, Ypos + current_y, 2*current_x, Color);
+        UTIL_LCD_DrawHLine(Xpos - current_x, Ypos - current_y, 2*current_x, Color);
+        UTIL_LCD_DrawHLine(Xpos - current_x, Ypos + current_y, 2*current_x, Color);
       }
     }
     if (decision < 0)
@@ -795,7 +795,7 @@ void GUI_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
     current_x++;
   }
 
-  GUI_DrawCircle(Xpos, Ypos, Radius, Color);
+  UTIL_LCD_DrawCircle(Xpos, Ypos, Radius, Color);
 }
 
 /**
@@ -804,7 +804,7 @@ void GUI_FillCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t Colo
   * @param  PointCount Number of points
   * @param  Color      Draw color
   */
-void GUI_FillPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
+void UTIL_LCD_FillPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
 {
   int16_t X = 0, Y = 0, X2 = 0, Y2 = 0, x_center = 0, y_center = 0, x_first = 0, y_first = 0, pixel_x = 0, pixel_y = 0, counter = 0;
   uint32_t  image_left = 0, image_right = 0, image_top = 0, image_bottom = 0;
@@ -908,7 +908,7 @@ void GUI_FillPolygon(pPoint Points, uint32_t PointCount, uint32_t Color)
   * @param  YRadius Ellipse Y radius
   * @param  Color   Draw color
   */
-void GUI_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Color)
+void UTIL_LCD_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Color)
 {
   int x_pos = 0, y_pos = -YRadius, err = 2-2*XRadius, e2;
   float k = 0, rad1 = 0, rad2 = 0;
@@ -920,8 +920,8 @@ void GUI_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius, uint32_t Colo
 
   do
   {
-    GUI_DrawHLine((Xpos-(uint32_t)(x_pos/k)), (Ypos + y_pos), (2*(uint32_t)(x_pos/k) + 1), Color);
-    GUI_DrawHLine((Xpos-(uint32_t)(x_pos/k)), (Ypos - y_pos), (2*(uint32_t)(x_pos/k) + 1), Color);
+    UTIL_LCD_DrawHLine((Xpos-(uint32_t)(x_pos/k)), (Ypos + y_pos), (2*(uint32_t)(x_pos/k) + 1), Color);
+    UTIL_LCD_DrawHLine((Xpos-(uint32_t)(x_pos/k)), (Ypos - y_pos), (2*(uint32_t)(x_pos/k) + 1), Color);
 
     e2 = err;
     if (e2 <= x_pos)
@@ -947,8 +947,8 @@ static void DrawChar(uint32_t Xpos, uint32_t Ypos, const uint8_t *pData)
   uint8_t  *pchar;
   uint32_t line;
 
-  height = DrawProp[DrawProp->GuiLayer].pFont->Height;
-  width  = DrawProp[DrawProp->GuiLayer].pFont->Width;
+  height = DrawProp[DrawProp->LcdLayer].pFont->Height;
+  width  = DrawProp[DrawProp->LcdLayer].pFont->Width;
   uint16_t rgb565[24];
   uint32_t argb8888[24];
 
@@ -975,20 +975,20 @@ static void DrawChar(uint32_t Xpos, uint32_t Ypos, const uint8_t *pData)
       break;
     }
 
-    if(DrawProp[DrawProp->GuiLayer].GuiPixelFormat == LCD_PIXEL_FORMAT_RGB565)
+    if(DrawProp[DrawProp->LcdLayer].LcdPixelFormat == LCD_PIXEL_FORMAT_RGB565)
     {
       for (j = 0; j < width; j++)
       {
         if(line & (1 << (width- j + offset- 1)))
         {
-          rgb565[j] = CONVERTARGB88882RGB565(DrawProp[DrawProp->GuiLayer].TextColor);
+          rgb565[j] = CONVERTARGB88882RGB565(DrawProp[DrawProp->LcdLayer].TextColor);
         }
         else
         {
-          rgb565[j] = CONVERTARGB88882RGB565(DrawProp[DrawProp->GuiLayer].BackColor);
+          rgb565[j] = CONVERTARGB88882RGB565(DrawProp[DrawProp->LcdLayer].BackColor);
         }
       }
-      GUI_FillRGBRect(Xpos,  Ypos++, (uint8_t*)&rgb565[0], width, 1);
+      UTIL_LCD_FillRGBRect(Xpos,  Ypos++, (uint8_t*)&rgb565[0], width, 1);
     }
     else
     {
@@ -996,14 +996,14 @@ static void DrawChar(uint32_t Xpos, uint32_t Ypos, const uint8_t *pData)
       {
         if(line & (1 << (width- j + offset- 1)))
         {
-          argb8888[j] = DrawProp[DrawProp->GuiLayer].TextColor;
+          argb8888[j] = DrawProp[DrawProp->LcdLayer].TextColor;
         }
         else
         {
-          argb8888[j] = DrawProp[DrawProp->GuiLayer].BackColor;
+          argb8888[j] = DrawProp[DrawProp->LcdLayer].BackColor;
         }
       }
-      GUI_FillRGBRect(Xpos,  Ypos++, (uint8_t*)&argb8888[0], width, 1);
+      UTIL_LCD_FillRGBRect(Xpos,  Ypos++, (uint8_t*)&argb8888[0], width, 1);
     }
   }
 }
@@ -1071,7 +1071,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
 
   for (curpixel = 0; curpixel <= numpixels; curpixel++)
   {
-    GUI_DrawLine(x, y, Positions->x3, Positions->y3, Color);
+    UTIL_LCD_DrawLine(x, y, Positions->x3, Positions->y3, Color);
 
     num += numadd;              /* Increase the numerator by the top of the fraction */
     if (num >= den)             /* Check if numerator >= denominator */

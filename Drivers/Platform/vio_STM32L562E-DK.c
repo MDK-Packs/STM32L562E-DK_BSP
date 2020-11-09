@@ -1,8 +1,8 @@
 /******************************************************************************
  * @file     vio_STM32L562E-DK.c
  * @brief    Virtual I/O implementation for board STM32L562E-DK
- * @version  V1.0.0
- * @date     24. March 2020
+ * @version  V1.1.0
+ * @date     5. November 2020
  ******************************************************************************/
 /*
  * Copyright (c) 2020 Arm Limited (or its affiliates). All rights reserved.
@@ -46,10 +46,12 @@ vioMotionAccelero | vioValueXYZ[1] | iNEMO 3D accelerometer (LSM6DSO)           
 #if !defined CMSIS_VOUT || !defined CMSIS_VIN
 #include "stm32l562e_discovery.h"
 #include "stm32l562e_discovery_motion_sensors.h"
+#if !defined VIO_LCD_DISABLE
 #include "stm32l562e_discovery_lcd.h"
-#include "basic_gui.h"
+#include "stm32_lcd.h"
 
 #include "cmsis_os2.h"
+#endif
 #endif
 
 // VIO input, output definitions
@@ -71,7 +73,10 @@ __USED vioAddrIPv6_t vioAddrIPv6[VIO_IPV6_ADDRESS_NUM];                 // Memor
 
 #if !defined CMSIS_VOUT
 // Global types, variables, functions
+#if !defined VIO_LCD_DISABLE
 static osMutexId_t  mid_mutLCD;         // Mutex ID of mutex:  LCD
+#endif
+
 static char         ip_ascii[40];       // string buffer for IP address conversion
 
 /**
@@ -151,6 +156,7 @@ static void ip6_2a (const uint8_t *ip6_addr, char *buf, uint32_t buf_len) {
   buf[j] = 0;
 }
 
+#if !defined VIO_LCD_DISABLE
 typedef struct displayArea {
   uint16_t   xOrigin;          // x Origin
   uint16_t   xWidth;           // x width
@@ -174,14 +180,14 @@ static void displayScrollVertical (uint32_t idx) {
 
   for (y = display[idx].yOrigin; y < (display[idx].yHeight - display[idx].fontHeight); y++) {
     for (x = display[idx].xOrigin; x < display[idx].xWidth; x++) {
-      GUI_GetPixel(x, y + display[idx].fontHeight, &color);
-      GUI_SetPixel(x, y,                            color);
+      UTIL_LCD_GetPixel(x, y + display[idx].fontHeight, &color);
+      UTIL_LCD_SetPixel(x, y,                            color);
     }
   }
 
   for (; y < display[idx].yHeight; y++) {
     for (x = display[idx].xOrigin; x < display[idx].xWidth; x++) {
-      GUI_SetPixel(x, y,     GUI_COLOR_BLACK);
+      UTIL_LCD_SetPixel(x, y,     UTIL_LCD_COLOR_BLACK);
     }
   }
 }
@@ -212,7 +218,7 @@ static void displayString (uint32_t idx, char *str) {
         break;
       default:
         // Display character at current cursor position
-        GUI_DisplayChar(display[idx].xPos, display[idx].yPos, ch);
+        UTIL_LCD_DisplayChar(display[idx].xPos, display[idx].yPos, ch);
         display[idx].xPos += display[idx].fontWidth;                 /* Move cursor one column to right */
         if (display[idx].xPos >= display[idx].xWidth) {              /* If last column was overstepped */
           display[idx].xPos = display[idx].xOrigin;                  /* First column */
@@ -228,6 +234,7 @@ static void displayString (uint32_t idx, char *str) {
   }
 }
 #endif
+#endif
 
 #if !defined CMSIS_VIN
 // Add global user types, variables, functions here:
@@ -237,10 +244,13 @@ static void displayString (uint32_t idx, char *str) {
 // Initialize test input, output.
 void vioInit (void) {
 #if !defined CMSIS_VOUT
+#if !defined VIO_LCD_DISABLE
   // Display variables:
-  GUI_Drv_t GuiDrv;
+  LCD_UTILS_Drv_t GuiDrv;
   uint32_t XSize, YSize;
 #endif
+#endif
+
 #if !defined CMSIS_VIN
 // Add user variables here:
 
@@ -256,6 +266,7 @@ void vioInit (void) {
   memset(vioAddrIPv6, 0, sizeof(vioAddrIPv6));
 
 #if !defined CMSIS_VOUT
+#if !defined VIO_LCD_DISABLE
   // Create LCD mutex
   mid_mutLCD = osMutexNew(NULL);
   if (mid_mutLCD == NULL) { /* add error handling */ }
@@ -279,10 +290,10 @@ void vioInit (void) {
   GuiDrv.GetYSize    = BSP_LCD_GetYSize;
   GuiDrv.SetLayer    = BSP_LCD_SetActiveLayer;
   GuiDrv.GetFormat   = BSP_LCD_GetFormat;
-  GUI_SetFuncDriver(&GuiDrv);
+  UTIL_LCD_SetFuncDriver(&GuiDrv);
 
   // Clear the LCD
-  GUI_Clear(GUI_COLOR_BLACK);
+  UTIL_LCD_Clear(UTIL_LCD_COLOR_BLACK);
 
   // Set the display on
   BSP_LCD_DisplayOn(0U);
@@ -329,29 +340,30 @@ void vioInit (void) {
 
 
   // Draw LCD layout
-  GUI_DrawRect(0U, 0U, XSize,    YSize,    GUI_COLOR_ORANGE);
-  GUI_DrawRect(1U, 1U, XSize-2U, YSize-2U, GUI_COLOR_ORANGE);
+  UTIL_LCD_DrawRect(0U, 0U, XSize,    YSize,    UTIL_LCD_COLOR_ORANGE);
+  UTIL_LCD_DrawRect(1U, 1U, XSize-2U, YSize-2U, UTIL_LCD_COLOR_ORANGE);
   /*   3        pixel row empty */
   /*   4.. 35   2 lines font16 =  2*16 vioLevelHeading */
   /*  36        pixel row empty  */
 
-  GUI_DrawHLine(2U, 37U, XSize-4U, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2U, 38U, XSize-4U, GUI_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 37U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 38U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
   /*  39        pixel row empty */
   /*  40.. 63   2 lines font12 =  2*12 vioLevelNone */
   /*  64        pixel row empty */
 
-  GUI_DrawHLine(2U, 65U, XSize-4U, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2U, 66U, XSize-4U, GUI_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 65U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 66U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
   /*  67        pixel row empty */
   /*  68..115   4 lines font12 =  4*12 vioLevelError */
   /* 116        pixel row empty */
 
-  GUI_DrawHLine(2U, 117U, XSize-4U, GUI_COLOR_ORANGE);
-  GUI_DrawHLine(2U, 118U, XSize-4U, GUI_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 117U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
+  UTIL_LCD_DrawHLine(2U, 118U, XSize-4U, UTIL_LCD_COLOR_ORANGE);
   /* 119        pixel row empty */
   /* 120..227   9 lines font12 = 9*12 vioLevelMessage */
   /* 228        pixel row empty */
+#endif
 #endif
 
 #if !defined CMSIS_VIN
@@ -388,33 +400,35 @@ int32_t vioPrint (uint32_t level, const char *format, ...) {
   va_end(args);
 
 #if !defined CMSIS_VOUT
+#if !defined VIO_LCD_DISABLE
 // Draw LCD level
   osMutexAcquire(mid_mutLCD, osWaitForever);
   switch (level) {
     case vioLevelNone:
-      GUI_SetFont(&Font12);
-      GUI_SetTextColor(GUI_COLOR_WHITE);
+      UTIL_LCD_SetFont(&Font12);
+      UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
       displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelHeading:
-      GUI_SetFont(&Font16);
-      GUI_SetTextColor(GUI_COLOR_GREEN);
+      UTIL_LCD_SetFont(&Font16);
+      UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_GREEN);
       displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelMessage:
-      GUI_SetFont(&Font12);
-      GUI_SetTextColor(GUI_COLOR_BLUE);
+      UTIL_LCD_SetFont(&Font12);
+      UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_BLUE);
       displayString(level, (char *)vioPrintMem[level]);
       break;
     case vioLevelError:
-      GUI_SetFont(&Font12);
-      GUI_SetTextColor(GUI_COLOR_RED);
+      UTIL_LCD_SetFont(&Font12);
+      UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_RED);
       displayString(level, (char *)vioPrintMem[level]);
       break;
   }
-      GUI_SetFont(&Font12);
-      GUI_SetTextColor(GUI_COLOR_DARKBLUE);
+      UTIL_LCD_SetFont(&Font12);
+      UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_DARKBLUE);
   osMutexRelease(mid_mutLCD);
+#endif
 #endif
 
   return (ret);
@@ -593,12 +607,14 @@ void vioSetIPv4 (uint32_t id, vioAddrIPv4_t addrIPv4) {
   // Convert IP4 address to ASCII
   ip4_2a((uint8_t *)&vioAddrIPv4[index], ip_ascii, sizeof(ip_ascii));
 
+#if !defined VIO_LCD_DISABLE
   osMutexAcquire(mid_mutLCD, osWaitForever);
-  GUI_SetFont(&Font12);
-  GUI_SetTextColor(GUI_COLOR_WHITE);
+  UTIL_LCD_SetFont(&Font12);
+  UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
   displayString(vioLevelNone, "\r\n");
   displayString(vioLevelNone, ip_ascii);
   osMutexRelease(mid_mutLCD);
+#endif
 #endif
 }
 
@@ -644,12 +660,14 @@ void vioSetIPv6 (uint32_t id, vioAddrIPv6_t addrIPv6) {
   // Convert IP6 address to ASCII
   ip6_2a((uint8_t *)&vioAddrIPv6[index], ip_ascii, sizeof(ip_ascii));
 
+#if !defined VIO_LCD_DISABLE
   osMutexAcquire(mid_mutLCD, osWaitForever);
-  GUI_SetFont(&Font12);
-  GUI_SetTextColor(GUI_COLOR_WHITE);
+  UTIL_LCD_SetFont(&Font12);
+  UTIL_LCD_SetTextColor(UTIL_LCD_COLOR_WHITE);
   displayString(vioLevelNone, "\r\n");
   displayString(vioLevelNone, ip_ascii);
   osMutexRelease(mid_mutLCD);
+#endif
 #endif
 }
 
