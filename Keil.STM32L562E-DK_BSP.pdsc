@@ -299,6 +299,7 @@
       <feature type="I2C"       n="1"                name="I2C extension connector"/>
       <feature type="Button"    n="2"                name="Push-Buttons for Reset and User"/>
       <feature type="LED"       n="7"                name="2 User LEDs"/>
+      <debugInterface adapter="ST-Link" connector="Micro-USB"/>
       <debugProbe connector="Micro-USB" debugClock="10000000" debugLink="swd" name="ST-Link"/>
     </board>
   </boards>
