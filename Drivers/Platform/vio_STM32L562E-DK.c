@@ -1,11 +1,11 @@
 /******************************************************************************
  * @file     vio_STM32L562E-DK.c
  * @brief    Virtual I/O implementation for board STM32L562E-DK
- * @version  V1.1.0
- * @date     5. November 2020
+ * @version  V1.2.0
+ * @date     1. April 2021
  ******************************************************************************/
 /*
- * Copyright (c) 2020 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2020 - 2021 Arm Limited (or its affiliates). All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -266,14 +266,14 @@ void vioInit (void) {
   memset(vioAddrIPv6, 0, sizeof(vioAddrIPv6));
 
 #if !defined CMSIS_VOUT
+  // Initialize LEDs pins
+  BSP_LED_Init(LED_RED);
+  BSP_LED_Init(LED_GREEN);
+
 #if !defined VIO_LCD_DISABLE
   // Create LCD mutex
   mid_mutLCD = osMutexNew(NULL);
   if (mid_mutLCD == NULL) { /* add error handling */ }
-
-  // Initialize LEDs pins
-  BSP_LED_Init(LED_RED);
-  BSP_LED_Init(LED_GREEN);
 
   // Initialize the LCD
   BSP_LCD_Init(0U, LCD_ORIENTATION_PORTRAIT);
@@ -337,7 +337,6 @@ void vioInit (void) {
   display[vioLevelMessage].yOrigin    = 120;
   display[vioLevelMessage].yHeight    =  9 * display[vioLevelMessage].fontHeight + display[vioLevelMessage].yOrigin;
   display[vioLevelMessage].yPos       = display[vioLevelMessage].yOrigin;
-
 
   // Draw LCD layout
   UTIL_LCD_DrawRect(0U, 0U, XSize,    YSize,    UTIL_LCD_COLOR_ORANGE);
