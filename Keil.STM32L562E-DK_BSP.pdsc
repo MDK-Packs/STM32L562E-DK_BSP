@@ -7,17 +7,12 @@
   <repository type="git">https://github.com/MDK-Packs/STM32L562E-DK_BSP.git</repository>
 
   <releases>
-    <release version="1.3.0-dev2">
+    <release version="1.3.0-rc0">
       Synchronize with STM32CubeL5 Firmware Package version V1.4.0
       Projects:
       - Update CubeMX project
-    </release>
-    <release version="1.3.0-dev1">
-      Update Platform example (blocking stdin_getchar in stdio retarget)
-    </release>
-    <release version="1.3.0-dev0">
-      Projects examples update:
-      - override default HAL_InitTick function
+      - Override default HAL_InitTick function
+      - Update Platform project: Blocking stdin_getchar in stdio retarget
       Replace documentation files with links
       Update schemaVersion (1.7.2)
     </release>
