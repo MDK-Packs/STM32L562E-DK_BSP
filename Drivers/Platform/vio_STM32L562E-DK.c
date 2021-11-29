@@ -375,7 +375,7 @@ void vioInit (void) {
 #endif
 }
 
-// Print formated string to test terminal.
+// Print formatted string to test terminal.
 int32_t vioPrint (uint32_t level, const char *format, ...) {
   va_list args;
   int32_t ret;
