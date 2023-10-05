@@ -8,6 +8,11 @@
   <license>LICENSE</license>
 
   <releases>
+    <release version="1.4.0-dev0">
+      Example projects:
+      - Update VIO to API 1.0.0
+      - Synchronize to CMSIS 6.0.0
+    </release>
     <release version="1.3.1-dev1">
       Pack Description:
       - Add LICENSE file
@@ -288,7 +293,7 @@
     </bundle>
 
     <!-- VIO component for STM32L562E-DK -->
-    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant= "STM32L562E-DK" Cversion="1.3.0" Capiversion="0.1.0"   condition="STM32L562E-DK VIO">
+    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant= "STM32L562E-DK" Cversion="2.0.0" Capiversion="1.0.0"   condition="STM32L562E-DK VIO">
       <description>Virtual I/O implementation for STM32L562E-DK</description>
       <RTE_Components_h>
         #define RTE_VIO_BOARD

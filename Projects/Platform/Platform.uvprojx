@@ -10,7 +10,7 @@
       <TargetName>STM32L562E-DK</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6210000::V6.21::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -176,7 +176,7 @@
             <GenPPlst>0</GenPPlst>
             <AdsCpuType>"Cortex-M33"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
-            <mOS>1</mOS>
+            <mOS>0</mOS>
             <uocRom>0</uocRom>
             <uocRam>0</uocRam>
             <hadIROM>1</hadIROM>
@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -451,6 +452,15 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>::CMSIS-Compiler</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS-View</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Device</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Board Support</GroupName>
         </Group>
         <Group>
@@ -459,19 +469,13 @@
         <Group>
           <GroupName>::CMSIS Driver</GroupName>
         </Group>
-        <Group>
-          <GroupName>::Compiler</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Device</GroupName>
-        </Group>
       </Groups>
     </Target>
   </Targets>
 
   <RTE>
     <gpdscs>
-      <gpdsc name="RTE\Device\STM32L562QEIxQ\FrameworkCubeMX.gpdsc">
+      <gpdsc name="RTE/Device/STM32L562QEIxQ/FrameworkCubeMX.gpdsc">
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -487,51 +491,87 @@
     </boards>
     <apis>
       <api Capiversion="2.3.0" Cclass="CMSIS Driver" Cgroup="SPI" exclusive="0">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </api>
       <api Capiversion="2.4.0" Cclass="CMSIS Driver" Cgroup="USART" exclusive="0">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </api>
-      <api Capiversion="0.1.0" Cclass="CMSIS Driver" Cgroup="VIO" exclusive="1">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
+      <api Capiversion="1.0.0" Cclass="CMSIS Driver" Cgroup="VIO" exclusive="1">
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </api>
-      <api Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" exclusive="1">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0-dev6-gun01"/>
+      <api Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDERR" condition="CortexDevice" exclusive="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </api>
-      <api Capiversion="1.1.0" Cclass="Device" Cgroup="STM32Cube Framework" exclusive="1">
-        <package name="STM32L5xx_DFP" schemaVersion="1.6.0" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.1-dev3"/>
+      <api Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDIN" condition="CortexDevice" exclusive="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDOUT" condition="CortexDevice" exclusive="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.0.1" Cclass="CMSIS" Cgroup="OS Tick" exclusive="1">
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="2.3.0" Cclass="CMSIS" Cgroup="RTOS2" exclusive="1">
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </api>
+      <api Capiversion="1.1.0" Cclass="Device" Cgroup="STM32Cube Framework" condition="STM32L5" exclusive="1">
+        <package name="STM32L5xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </api>
     </apis>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.5.0" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+      <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cvendor="ARM" Cversion="1.0.0" condition="ARMCC CortexDevice">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
-      <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.5.3" condition="RTOS2 RTX5">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+      <component Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" condition="CORE" custom="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device">
-        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+      <component Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" condition="CORE" custom="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="1.0.0" Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="Custom" Cvendor="ARM" Cversion="1.0.0" condition="CORE" custom="1">
+        <package name="CMSIS-Compiler" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="2.0.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </component>
+      <component Cclass="CMSIS-View" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="ARM" Cversion="1.5.3" condition="EventRecorder">
+        <package name="CMSIS-View" schemaVersion="1.7.25" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK">
             <mem>
@@ -540,56 +580,56 @@
           </targetInfo>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
-        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.0.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
-        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+      <component Capiversion="1.0.1" Cclass="CMSIS" Cgroup="OS Tick" Csub="SysTick" Cvendor="ARM" Cversion="1.0.5" condition="OS Tick SysTick">
+        <package name="CMSIS" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="6.0.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
-        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+      <component Capiversion="2.3.0" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.8.0" condition="RTX5">
+        <package name="CMSIS-RTX" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="LSM6DSO" Cvendor="Keil" Cversion="1.3.0" condition="STM32L562">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Components" Csub="ST7789H2" Cvendor="Keil" Cversion="2.0.2" condition="STM32L562">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="BUS" Cvendor="Keil" Cversion="1.1.1" condition="STM32L562E-DK BSP BUS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.1.1" condition="STM32L562E-DK BSP">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="LCD" Cvendor="Keil" Cversion="1.1.1" condition="STM32L562E-DK BSP LCD">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Motion Sensors" Cvendor="Keil" Cversion="1.1.1" condition="STM32L562E-DK BSP MOTION SENSORS">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -606,8 +646,14 @@
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </component>
-      <component Capiversion="0.1.0" Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="STM32L562E-DK" Cvendor="Keil" Cversion="1.2.0" condition="STM32L562E-DK VIO">
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+      <component Capiversion="1.0.0" Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="STM32L562E-DK" Cvendor="Keil" Cversion="2.0.0" condition="STM32L562E-DK VIO">
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube Framework" Csub="STM32CubeMX" Cvendor="Keil" Cversion="1.1.0" condition="STCubeMX" doc="C:/PACK/Keil/STM32L5xx_DFP/1.4.0/MDK/CubeMX/Documentation/cubemx.html" generated="1" generator="STM32CubeMX" selectable="1">
+        <package name="STM32L5xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -719,31 +765,31 @@
       <file attr="config" category="header" name="Drivers\Config\stm32l562e_discovery_conf.h" version="1.0.1">
         <instance index="0">RTE\Board_Support\STM32L562QEIxQ\stm32l562e_discovery_conf.h</instance>
         <component Cbundle="STM32L562E-DK" Cclass="Board Support" Cgroup="Drivers" Csub="Basic I/O" Cvendor="Keil" Cversion="1.1.1" condition="STM32L562E-DK BSP"/>
-        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.2" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.3.0"/>
+        <package name="STM32L562E-DK_BSP" schemaVersion="1.7.28" url="https://github.com/MDK-Packs/Pack/raw/master/STM32L562E-DK_BSP/" vendor="Keil" version="1.4.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="CMSIS\RTOS2\RTX\Config\RTX_Config.c" version="5.1.1">
+      <file attr="config" category="header" name="EventRecorder\Config\EventRecorderConf.h" version="1.1.0">
+        <instance index="0">RTE\CMSIS-View\EventRecorderConf.h</instance>
+        <component Cclass="CMSIS-View" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="ARM" Cversion="1.5.3" condition="EventRecorder"/>
+        <package name="CMSIS-View" schemaVersion="1.7.25" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <targetInfos>
+          <targetInfo name="STM32L562E-DK"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="Config\RTX_Config.c" version="5.2.0">
         <instance index="0">RTE\CMSIS\RTX_Config.c</instance>
-        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.5.3" condition="RTOS2 RTX5"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <component Capiversion="2.3.0" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.8.0" condition="RTX5"/>
+        <package name="CMSIS-RTX" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="CMSIS\RTOS2\RTX\Config\RTX_Config.h" version="5.5.2">
+      <file attr="config" category="header" name="Config\RTX_Config.h" version="5.6.0">
         <instance index="0">RTE\CMSIS\RTX_Config.h</instance>
-        <component Capiversion="2.1.3" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.5.3" condition="RTOS2 RTX5"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
-        <targetInfos>
-          <targetInfo name="STM32L562E-DK"/>
-        </targetInfos>
-      </file>
-      <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
-        <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
-        <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
-        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+        <component Capiversion="2.3.0" Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source" Cvendor="ARM" Cversion="5.8.0" condition="RTX5"/>
+        <package name="CMSIS-RTX" schemaVersion="1.7.27" url="https://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="STM32L562E-DK"/>
         </targetInfos>
@@ -855,62 +901,7 @@
       </LayAsnItem>
       <LayAsnItem>
         <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Drivers:BUS</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Drivers:Basic I/O</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Drivers:LCD</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Drivers:Motion Sensors</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
         <LayAsnName>ARM::CMSIS:CORE</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>ARM::CMSIS:RTOS2:Keil RTX5</LayAsnName>
-        <LayAsnLayerName>RTOS</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil::CMSIS Driver:SPI</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil::CMSIS Driver:USART</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil::CMSIS Driver:VIO:Board</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.#Bundle#::Compiler:Event Recorder</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil::Device:Startup</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil::Device:STM32Cube Framework:STM32CubeMX</LayAsnName>
         <LayAsnLayerName>Board</LayAsnLayerName>
       </LayAsnItem>
       <LayAsnItem>
@@ -1020,32 +1011,97 @@
       </LayAsnItem>
       <LayAsnItem>
         <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Components:LSM6DSO</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.STM32L562E-DK::Board Support:Components:ST7789H2</LayAsnName>
-        <LayAsnLayerName>Board</LayAsnLayerName>
-      </LayAsnItem>
-      <LayAsnItem>
-        <LayAsnType>1</LayAsnType>
         <LayAsnName>Keil::Device:STM32Cube HAL:ICACHE</LayAsnName>
         <LayAsnLayerName>Board</LayAsnLayerName>
       </LayAsnItem>
       <LayAsnItem>
         <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.#Bundle#::Compiler:I/O:STDERR</LayAsnName>
+        <LayAsnName>ARM::CMSIS-View:Event Recorder</LayAsnName>
         <LayAsnLayerName>Board</LayAsnLayerName>
       </LayAsnItem>
       <LayAsnItem>
         <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.#Bundle#::Compiler:I/O:STDIN</LayAsnName>
+        <LayAsnName>ARM::CMSIS:RTOS2:Keil RTX5</LayAsnName>
+        <LayAsnLayerName>RTOS</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>ARM::CMSIS:OS Tick:SysTick</LayAsnName>
+        <LayAsnLayerName>RTOS</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>ARM::CMSIS-Compiler:CORE</LayAsnName>
         <LayAsnLayerName>Board</LayAsnLayerName>
       </LayAsnItem>
       <LayAsnItem>
         <LayAsnType>1</LayAsnType>
-        <LayAsnName>Keil.#Bundle#::Compiler:I/O:STDOUT</LayAsnName>
+        <LayAsnName>ARM::CMSIS-Compiler:STDERR:Custom</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>ARM::CMSIS-Compiler:STDIN:Custom</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>ARM::CMSIS-Compiler:STDOUT:Custom</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::CMSIS Driver:SPI</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::CMSIS Driver:USART</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::CMSIS Driver:VIO:Board</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Device:Startup</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Device:STM32Cube Framework:STM32CubeMX</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Components:LSM6DSO</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Components:ST7789H2</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Drivers:BUS</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Drivers:Basic I/O</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Drivers:LCD</LayAsnName>
+        <LayAsnLayerName>Board</LayAsnLayerName>
+      </LayAsnItem>
+      <LayAsnItem>
+        <LayAsnType>1</LayAsnType>
+        <LayAsnName>Keil::Board Support&amp;STM32L562E-DK:Drivers:Motion Sensors</LayAsnName>
         <LayAsnLayerName>Board</LayAsnLayerName>
       </LayAsnItem>
     </LayAssign>
